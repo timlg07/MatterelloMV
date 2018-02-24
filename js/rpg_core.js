@@ -2256,9 +2256,9 @@ Input.keyMapper = {
     45: 'escape',   // insert
     81: 'pageup',   // Q
     87: 'up',    // W //EDIT@TIM#INPUT
-    /*  : 'left'   // A //EDIT@TIM#INPUT
-      : 'down',  // S //EDIT@TIM#INPUT
-      : 'right', // D //EDIT@TIM#INPUT*/
+    65: 'left',  // A //EDIT@TIM#INPUT
+    83: 'down',  // S //EDIT@TIM#INPUT
+    68: 'right', // D //EDIT@TIM#INPUT
     88: 'escape',   // X
     90: 'ok',       // Z
     96: 'escape',   // numpad 0

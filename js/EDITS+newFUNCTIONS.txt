@@ -26,3 +26,9 @@
 	- all possible functions > _timer.js
 
 }
+
+#KEYMAP{
+
+	- added W, A, S, D as up, left, down, right in [rpg_core.js:2258]
+
+}
