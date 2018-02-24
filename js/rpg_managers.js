@@ -40,9 +40,8 @@ var $gameTroop        = null;
 var $gameMap          = null;
 var $gamePlayer       = null;
 var $testEvent        = null;
+var $updater          = null;//NEW@TIM#UPDATER
 
-
-var $updater = new Updater(); //NEW@TIM#UPDATER
 
 DataManager._globalId       = 'RPGMV';
 DataManager._lastAccessedId = 1;
@@ -208,6 +207,7 @@ DataManager.createGameObjects = function() {
     $gameTroop         = new Game_Troop();
     $gameMap           = new Game_Map();
     $gamePlayer        = new Game_Player();
+    $updater           = new Updater(); //NEW@TIM#UPDATER
 };
 
 DataManager.setupNewGame = function() {
@@ -334,7 +334,7 @@ DataManager.maxSavefiles = function() {
 DataManager.saveGame = function(savefileId) {
     if(savefileId==1){
         return false;
-    }//EDIT@TIM#SAVE
+    }//NEW@TIM#SAVE
     try {
         return this.saveGameWithoutRescue(savefileId);
     } catch (e) {

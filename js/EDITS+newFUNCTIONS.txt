@@ -14,8 +14,9 @@
 
 #UPDATER{
 	
-	- Updater Function _updater.js
-	- global var $updater [rpg_managers:45]
+	- Updater Function in [rpg_core:23]
+	- global var $updater [rpg_managers:44]
+	- $updater created in [rpg_managers:210]
 	> add new update Function: <Code> $updater.add(function); </Code>
 	- Updaters update function is called in [rpg_core:5260]
 }
