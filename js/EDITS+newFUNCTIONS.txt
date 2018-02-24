@@ -1,0 +1,28 @@
+#AUTOSAVE{
+
+	- DataManager.doAutosave [rpg_managers.js:347] //NEW@TIM#SAVE (
+		der normale Aufruf DataManager.saveGame speichert nun  nicht mehr in der savefile mit id==1,
+		da diese SaveFile nun für den Autosave reserviert ist, der ohne parameter mit 
+		<Code> DataManager.doAutosave() </Code> aufgerufen werden kann.
+	  )
+	- DataManager.lastAccessedSavefileId is now always 1 [rpg_managers.js:374]
+	- savefile name of the first savefile is now always "Autosave" [rpg_windows.js:2834]
+	- When initializing a new Game_Map an Autosave is done [rpg_objects.js:5374]
+
+	=> AutoSaveFile ist nun zu erkennen und kann nicht überschrieben werden
+}
+
+#UPDATER{
+	
+	- Updater Function _updater.js
+	- global var $updater [rpg_managers:45]
+	> add new update Function: <Code> $updater.add(function); </Code>
+	- Updaters update function is called in [rpg_core:5260]
+}
+
+#TIMER{
+
+	- completely new Timer script: _timer.js
+	- all possible functions > _timer.js
+
+}

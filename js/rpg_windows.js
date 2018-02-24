@@ -2805,7 +2805,7 @@ Window_SavefileList.prototype.maxItems = function() {
 };
 
 Window_SavefileList.prototype.maxVisibleItems = function() {
-    return 5;
+    return 7;
 };
 
 Window_SavefileList.prototype.itemHeight = function() {
@@ -2831,7 +2831,8 @@ Window_SavefileList.prototype.drawItem = function(index) {
 };
 
 Window_SavefileList.prototype.drawFileId = function(id, x, y) {
-    this.drawText(TextManager.file + ' ' + id, x, y, 180);
+    var text = (id==1)?"Autosave":TextManager.file + ' ' + id;//EDIT@TIM#SAVE
+    this.drawText(text, x, y, 180);//EDIT@TIM#SAVE
 };
 
 Window_SavefileList.prototype.drawContents = function(info, rect, valid) {

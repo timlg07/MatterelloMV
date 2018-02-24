@@ -41,6 +41,9 @@ var $gameMap          = null;
 var $gamePlayer       = null;
 var $testEvent        = null;
 
+
+var $updater = new Updater(); //NEW@TIM#UPDATER
+
 DataManager._globalId       = 'RPGMV';
 DataManager._lastAccessedId = 1;
 DataManager._errorUrl       = null;
@@ -329,17 +332,32 @@ DataManager.maxSavefiles = function() {
 };
 
 DataManager.saveGame = function(savefileId) {
+    if(savefileId==1){
+        return false;
+    }//EDIT@TIM#SAVE
     try {
         return this.saveGameWithoutRescue(savefileId);
     } catch (e) {
         console.error(e);
         try {
             StorageManager.remove(savefileId);
-        } catch (e2) {
-        }
+        }catch(e2){doNothing()}
         return false;
     }
 };
+
+DataManager.doAutosave=function(){
+    try{
+        return this.saveGameWithoutRescue(1);
+    }catch(e){
+        console.error(e);
+        try{StorageManager.remove(1);}catch(e2){doNothing()}
+        return false;
+    }
+}//NEW@TIM#SAVE
+
+function doNothing(){}
+
 
 DataManager.loadGame = function(savefileId) {
     try {
@@ -356,7 +374,8 @@ DataManager.loadSavefileInfo = function(savefileId) {
 };
 
 DataManager.lastAccessedSavefileId = function() {
-    return this._lastAccessedId;
+    return 1;//EDIT@TIM#SAVE
+    //return this._lastAccessedId;
 };
 
 DataManager.saveGameWithoutRescue = function(savefileId) {

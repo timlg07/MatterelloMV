@@ -13,6 +13,7 @@ function JsExtensions() {
     throw new Error('This is not a class');
 }
 
+
 /**
  * Returns a number whose value is limited to the given range.
  *
@@ -2254,7 +2255,10 @@ Input.keyMapper = {
     40: 'down',     // down arrow
     45: 'escape',   // insert
     81: 'pageup',   // Q
-    87: 'pagedown', // W
+    87: 'up',    // W //EDIT@TIM#INPUT
+    /*  : 'left'   // A //EDIT@TIM#INPUT
+      : 'down',  // S //EDIT@TIM#INPUT
+      : 'right', // D //EDIT@TIM#INPUT*/
     88: 'escape',   // X
     90: 'ok',       // Z
     96: 'escape',   // numpad 0
@@ -5229,6 +5233,8 @@ Window.prototype.update = function() {
             child.update();
         }
     });
+    
+    $updater.update();//NEW@TIM#UPDATER    
 };
 
 /**
