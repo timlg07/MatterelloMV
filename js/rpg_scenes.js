@@ -376,7 +376,7 @@ Scene_Map.prototype.isReady = function() {
 Scene_Map.prototype.onMapLoaded = function() {
     if (this._transfer) {
         $gamePlayer.performTransfer();
-        DataManager.doAutosave();//NEW@TIM#SAVE
+        Savepoints.doAutosave();//NEW@TIM#SAVE
     }
     this.createDisplayObjects();
 };
