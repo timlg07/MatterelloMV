@@ -5371,7 +5371,7 @@ Game_Troop.prototype.makeDropItems = function() {
 
 function Game_Map() {
     this.initialize.apply(this, arguments);
-    DataManager.doAutosave();//NEW@TIM#SAVE
+    
 }
 
 Game_Map.prototype.initialize = function() {

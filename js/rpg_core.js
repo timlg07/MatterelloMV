@@ -14,8 +14,8 @@ function JsExtensions() {
 }
 
 /**
- * This is a updater for all custom Functions which need updates
- * access the global updater with $updater
+ * This is a updater for all custom Functions which need updates.
+ * Access the global Updater with $updater
  *
  * @class Updater
  * @author TIM_GRELLER

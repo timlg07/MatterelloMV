@@ -1,13 +1,13 @@
 #AUTOSAVE{
 
-	- DataManager.doAutosave [rpg_managers.js:347] //NEW@TIM#SAVE (
+	- !DataManager.doAutosave [rpg_managers.js:347] //NEW@TIM#SAVE (
 		der normale Aufruf DataManager.saveGame speichert nun  nicht mehr in der savefile mit id==1,
 		da diese SaveFile nun für den Autosave reserviert ist, der ohne parameter mit 
 		<Code> DataManager.doAutosave() </Code> aufgerufen werden kann.
 	  )
-	- DataManager.lastAccessedSavefileId is now always 1 [rpg_managers.js:374]
-	- savefile name of the first savefile is now always "Autosave" [rpg_windows.js:2834]
-	- When initializing a new Game_Map an Autosave is done [rpg_objects.js:5374]
+	- !DataManager.lastAccessedSavefileId is now always 1 [rpg_managers.js:374]
+	- !savefile name of the first savefile is now always "Autosave" [rpg_windows.js:2834]
+	- When transfering the $gamePlayer an Autosave is done [rpg_scenes.js:379]
 
 	=> AutoSaveFile ist nun zu erkennen und kann nicht überschrieben werden
 }
@@ -31,5 +31,17 @@
 #KEYMAP{
 
 	- added W, A, S, D as up, left, down, right in [rpg_core.js:2258]
+
+}
+
+#SIZE/RESOLUTION{
+
+	- SceneManager.fillScreen() resizes the window to the screen size
+	- SceneManager.mush_updateResolution() and
+	- SceneManager.mush_changeGraphicResolution() now use the screen 
+		width and height and resize with the screen.availWidth / 
+		screen.availHeight
+	=> All changes are between [$MUSH_OptionSystemPlus_:797] and 
+		[$MUSH_OptionSystemPlus_:829]
 
 }
