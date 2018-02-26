@@ -2831,7 +2831,8 @@ Window_SavefileList.prototype.drawItem = function(index) {
 };
 
 Window_SavefileList.prototype.drawFileId = function(id, x, y) {
-    var text = (id==1)?"Autosave":TextManager.file + ' ' + id;//EDIT@TIM#SAVE
+    var text = Savepoints.getName(id);//NEW@TIM#SAVE
+    //var text = (id==1)?"Autosave":TextManager.file + ' ' + id;//NEW@TIM#SAVE
     this.drawText(text, x, y, 180);//EDIT@TIM#SAVE
 };
 

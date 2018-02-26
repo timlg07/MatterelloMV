@@ -331,7 +331,7 @@ DataManager.maxSavefiles = function() {
     return 20;
 };
 
-DataManager.saveGame = function(savefileId) {
+/*DataManager.saveGame = function(savefileId) {
     if(savefileId==1){
         return false;
     }//NEW@TIM#SAVE
@@ -346,7 +346,7 @@ DataManager.saveGame = function(savefileId) {
     }
 };
 
-DataManager.doAutosave=function(){
+/*DataManager.doAutosave=function(){
     try{
         return this.saveGameWithoutRescue(1);
     }catch(e){
@@ -354,7 +354,7 @@ DataManager.doAutosave=function(){
         try{StorageManager.remove(1);}catch(e2){doNothing()}
         return false;
     }
-}//NEW@TIM#SAVE
+}//NEW@TIM#SAVE*/
 
 function doNothing(){}
 
@@ -384,7 +384,7 @@ DataManager.saveGameWithoutRescue = function(savefileId) {
         console.warn('Save data too big!');
     }
     StorageManager.save(savefileId, json);
-    this._lastAccessedId = savefileId;
+    this._lastAccessedId = 1;//EDIT@TIM#SAVE
     var globalInfo = this.loadGlobalInfo() || [];
     globalInfo[savefileId] = this.makeSavefileInfo();
     this.saveGlobalInfo(globalInfo);
