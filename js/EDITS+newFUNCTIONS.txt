@@ -1,20 +1,15 @@
 #AUTOSAVE{
 
-	- !DataManager.doAutosave [rpg_managers.js:347] //NEW@TIM#SAVE (
-		der normale Aufruf DataManager.saveGame speichert nun  nicht mehr in der savefile mit id==1,
-		da diese SaveFile nun für den Autosave reserviert ist, der ohne parameter mit 
-		<Code> DataManager.doAutosave() </Code> aufgerufen werden kann.
-	  )
-	- !DataManager.lastAccessedSavefileId is now always 1 [rpg_managers.js:374]
-	- !savefile name of the first savefile is now always "Autosave" [rpg_windows.js:2834]
+	- _savepoints.js
+	- DataManager.lastAccessedSavefileId is now always 1 [rpg_managers.js:374]
+	- savefile names are loaded from the _savepoints.js [rpg_windows.js:2834]
 	- When transfering the $gamePlayer an Autosave is done [rpg_scenes.js:379]
 
-	=> AutoSaveFile ist nun zu erkennen und kann nicht überschrieben werden
 }
 
 #UPDATER{
 	
-	- Updater Function in [rpg_core:23]
+	- Updater Function in _updater.js
 	- global var $updater [rpg_managers:44]
 	- $updater created in [rpg_managers:210]
 	> add new update Function: <Code> $updater.add(function); </Code>
