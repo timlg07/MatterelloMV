@@ -19,7 +19,6 @@ Savepoints.getName = function(savefileId){
 
 //SAVE
 Savepoints.doAutosave = function(){
-    alert("didAutosave")
     try{
         return DataManager.saveGameWithoutRescue(1);
     }catch(e){
