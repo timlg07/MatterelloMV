@@ -1001,8 +1001,9 @@ Scene_mushOptions_P2.prototype.updateInputLeftRight = function(arrow) {
 			}
 			this.repositionWindows();
 		} else if (this._windowMainCommand.index() == 1) {
-			this._windowMainCommand.changeBoolOption('osp_vSync');
-			this._windowMainCommand.refresh();
+			//this._windowMainCommand.changeBoolOption('osp_vSync');
+			//this._windowMainCommand.refresh();
+            //REMOVE@TIM#VSYNC
 		}
 	} else if (this._windowMainCommand.getSection() == 2) {
 		if (this._windowMainCommand.index() >= 0 && this._windowMainCommand.index() <= 3) {
@@ -1050,8 +1051,9 @@ Scene_mushOptions_P2.prototype.updateInputOkMain = function() {
 			}
 			this.repositionWindows();
 		} else if (this._windowMainCommand.index() == 1) {
-			this._windowMainCommand.changeBoolOption('osp_vSync');
-			this._windowMainCommand.refresh();
+			//this._windowMainCommand.changeBoolOption('osp_vSync');
+			//this._windowMainCommand.refresh();
+            //REMOVE@TIM#VSYNC
 		} else if (this._windowMainCommand.index() == 2) {
 			Graphics._switchFullScreen();
 			this._windowMainCommand.refresh();
@@ -1594,7 +1596,7 @@ Window_mushOptionsMainBack_P2.prototype.drawCosmetics = function() {
 Window_mushOptionsMainBack_P2.prototype.drawGraphics = function() {
 	var cos = [
 		$mushFeatures.params['OSP_Graphics'].screenResolution.name,
-		//$mushFeatures.params['OSP_Graphics'].vSync.name,
+		$mushFeatures.params['OSP_Graphics'].vSync.name,
 		$mushFeatures.params['OSP_Graphics'].fullscreen.name,
 		$mushFeatures.params['OSP_Graphics'].fpsMeter.name ];
 	for (var i = 0 ; i < cos.length ; i++) {
