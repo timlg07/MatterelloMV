@@ -786,6 +786,10 @@ SceneManager._screenWidth  = $mushFeatures.params['OSP_Graphics'].screenResoluti
 SceneManager._screenHeight = $mushFeatures.params['OSP_Graphics'].screenResolution.list[0][1] + 0;
 SceneManager._boxWidth     = $mushFeatures.params['OSP_Graphics'].screenResolution.list[0][0] + 0;
 SceneManager._boxHeight    = $mushFeatures.params['OSP_Graphics'].screenResolution.list[0][1] + 0;
+SceneManager._screenWidth  = screen.width;
+SceneManager._screenHeight = screen.height;
+SceneManager._boxWidth     = screen.width;
+SceneManager._boxHeight    = screen.height;
 
 var aliasMush_SceneManagerRun48 = SceneManager.run;
 SceneManager.run = function(sceneClass) {
@@ -802,11 +806,8 @@ SceneManager.mush_updateResolution = function() {
     var resizeWidth = this._screenWidth - window.innerWidth;
     var resizeHeight = this._screenHeight - window.innerHeight;
     
-    var resizeWidth2 = screen.availWidth;//NEW@TIM#SIZE
-    var resizeHeight2= screen.availHeight;//NEW@TIM#SIZE
-    
-    window.resizeBy(resizeWidth2, resizeHeight2);//EDIT@TIM#SIZE
-    window.moveBy(-1*resizeWidth2/2, -1*resizeHeight2/2);//EDIT@TIM#SIZE
+    window.resizeBy(resizeWidth,resizeHeight);
+    window.moveBy(-1*resizeWidth/2, -1*resizeHeight/2);
 };
 
 SceneManager.mush_changeGraphicResolution = function(width, height) {
@@ -814,17 +815,17 @@ SceneManager.mush_changeGraphicResolution = function(width, height) {
 	this._screenHeight = height;
 	this._boxWidth     = width;
 	this._boxHeight    = height;
-	/*if ($mushFeatures.params['OSP_Graphics'].screenResolution.scale) {
+	if ($mushFeatures.params['OSP_Graphics'].screenResolution.scale) {
 		Graphics._width    = $mushFeatures.params['OSP_Graphics'].screenResolution.list[0][0] + 0;
 		Graphics._height   = $mushFeatures.params['OSP_Graphics'].screenResolution.list[0][1] + 0;
 		Graphics.boxWidth  = $mushFeatures.params['OSP_Graphics'].screenResolution.list[0][0] + 0;
 		Graphics.boxHeight = $mushFeatures.params['OSP_Graphics'].screenResolution.list[0][1] + 0;
-	} else {*///EDIT@TIM#SIZE
-		Graphics._width    = /*width;*/ screen.width;//EDIT@TIM#SIZE
-		Graphics._height   = /*height;*/ screen.height;//EDIT@TIM#SIZE
-		Graphics.boxWidth  = /*width;*/ screen.width;//EDIT@TIM#SIZE
-		Graphics.boxHeight = /*height;*/ screen.height;//EDIT@TIM#SIZE
-	//}
+	} else {
+		Graphics._width    = width;
+		Graphics._height   = height;
+		Graphics.boxWidth  = width;
+		Graphics.boxHeight = height;
+	}
 	this.mush_updateResolution();
 };
 
