@@ -1593,7 +1593,7 @@ Window_mushOptionsMainBack_P2.prototype.drawCosmetics = function() {
 Window_mushOptionsMainBack_P2.prototype.drawGraphics = function() {
 	var cos = [
 		$mushFeatures.params['OSP_Graphics'].screenResolution.name,
-		$mushFeatures.params['OSP_Graphics'].vSync.name,
+		//$mushFeatures.params['OSP_Graphics'].vSync.name,
 		$mushFeatures.params['OSP_Graphics'].fullscreen.name,
 		$mushFeatures.params['OSP_Graphics'].fpsMeter.name ];
 	for (var i = 0 ; i < cos.length ; i++) {
