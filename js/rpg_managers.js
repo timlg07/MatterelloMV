@@ -241,6 +241,7 @@ DataManager.loadGlobalInfo = function() {
         json = StorageManager.load(0);
     } catch (e) {
         console.error(e);
+        alert(e.message+";\n"+e.stack);//ADD@TIM#ERROR
         return [];
     }
     if (json) {
@@ -299,7 +300,8 @@ DataManager.latestSavefileId = function() {
             }
         }
     }
-    return savefileId;
+    //return savefileId;
+    return 1; //EDIT@TIM#SAVE
 };
 
 DataManager.loadAllSavefileImages = function() {
@@ -328,13 +330,11 @@ DataManager.loadSavefileImages = function(info) {
 };
 
 DataManager.maxSavefiles = function() {
-    return 20;
+    return Savepoints.maxSavefiles();
 };
 
-/*DataManager.saveGame = function(savefileId) {
-    if(savefileId==1){
-        return false;
-    }//NEW@TIM#SAVE
+//=======following code is now in _savepoints.js =========//
+DataManager.saveGame = function(savefileId) {
     try {
         return this.saveGameWithoutRescue(savefileId);
     } catch (e) {
@@ -345,24 +345,14 @@ DataManager.maxSavefiles = function() {
         return false;
     }
 };
-
-/*DataManager.doAutosave=function(){
-    try{
-        return this.saveGameWithoutRescue(1);
-    }catch(e){
-        console.error(e);
-        try{StorageManager.remove(1);}catch(e2){doNothing()}
-        return false;
-    }
-}//NEW@TIM#SAVE*/
-
-function doNothing(){}
-
+//function doNothing(){}
+//=======================================================//
 
 DataManager.loadGame = function(savefileId) {
     try {
         return this.loadGameWithoutRescue(savefileId);
     } catch (e) {
+        alert(e.message+";\n"+e.stack);//ADD@TIM#ERROR
         console.error(e);
         return false;
     }
@@ -374,8 +364,8 @@ DataManager.loadSavefileInfo = function(savefileId) {
 };
 
 DataManager.lastAccessedSavefileId = function() {
-    return 1;//EDIT@TIM#SAVE
-    //return this._lastAccessedId;
+    //return 1;//EDIT@TIM#SAVE
+    return this._lastAccessedId;
 };
 
 DataManager.saveGameWithoutRescue = function(savefileId) {
@@ -526,6 +516,7 @@ ConfigManager.load = function() {
         json = StorageManager.load(-1);
     } catch (e) {
         console.error(e);
+        alert(e.message+";\n"+e.stack);//ADD@TIM#ERROR
     }
     if (json) {
         config = JSON.parse(json);
@@ -1608,7 +1599,7 @@ SceneManager.onError = function(e) {
     console.error(e.filename, e.lineno);
     try {
         this.stop();
-        Graphics.printError('Error', e.message);
+        Graphics.printError('Error', e.stack);//EDIT@TIM#ERROR
         AudioManager.stopAll();
     } catch (e2) {
     }
@@ -1633,7 +1624,7 @@ SceneManager.onKeyDown = function(event) {
 
 SceneManager.catchException = function(e) {
     if (e instanceof Error) {
-        Graphics.printError(e.name, e.message);
+        Graphics.printError(e.name, e.stack);//EDIT@TIM#ERROR
         console.error(e.stack);
     } else {
         Graphics.printError('UnknownError', e);
