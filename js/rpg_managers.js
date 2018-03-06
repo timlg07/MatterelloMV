@@ -887,6 +887,7 @@ AudioManager.playBgm = function(bgm, pos) {
         this.updateBgmParameters(bgm);
     } else {
         this.stopBgm();
+        if(bgm==null)return;//NEW@TIM#SAVE
         if (bgm.name) {
             this._bgmBuffer = this.createBuffer('bgm', bgm.name);
             this.updateBgmParameters(bgm);
@@ -1643,10 +1644,14 @@ SceneManager.updateInputData = function() {
 };
 
 SceneManager.updateMain = function() {
-    this.changeScene();
-    this.updateScene();
-    this.renderScene();
-    this.requestUpdate();
+    try{
+        this.changeScene();
+        this.updateScene();
+        this.renderScene();
+        this.requestUpdate();
+    }catch(e){
+        alert(e.name+"at rpg_managers.js:1646");
+    }//NEW@TIM#SAVE
 };
 
 SceneManager.changeScene = function() {

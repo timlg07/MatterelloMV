@@ -1,0 +1,42 @@
+#AUTOSAVE{
+
+	- _savepoints.js
+	- DataManager.lastAccessedSavefileId is now always 1 [rpg_managers.js:374]
+	- savefile names are loaded from the _savepoints.js [rpg_windows.js:2834]
+	- When transfering the $gamePlayer an Autosave is done [rpg_scenes.js:379]
+
+}
+
+#UPDATER{
+	
+	- Updater Function in _updater.js
+	- global var $updater [rpg_managers:44]
+	- $updater created in [rpg_managers:210]
+	> add new update Function: <Code> $updater.add(function); </Code>
+	- Updaters update function is called in [rpg_core:5260]
+}
+
+#TIMER{
+
+	- completely new Timer script: _timer.js
+	- all possible functions > _timer.js
+
+}
+
+#KEYMAP{
+
+	- added W, A, S, D as up, left, down, right in [rpg_core.js:2258]
+
+}
+
+#SIZE/RESOLUTION{
+
+	- SceneManager.fillScreen() resizes the window to the screen size
+	- SceneManager.mush_updateResolution() and
+	- SceneManager.mush_changeGraphicResolution() now use the screen 
+		width and height and resize with the screen.availWidth / 
+		screen.availHeight
+	=> All changes are between [$MUSH_OptionSystemPlus_:797] and 
+		[$MUSH_OptionSystemPlus_:829]
+
+}
