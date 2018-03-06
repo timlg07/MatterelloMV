@@ -16,6 +16,9 @@ Savepoints.getName = function(savefileId){
     return Savepoints.names[realID]
 }
 
+Savepoints.maxSavefiles = function() {
+    return this.names.length + 1;
+}
 
 //SAVE
 Savepoints.doAutosave = function(){

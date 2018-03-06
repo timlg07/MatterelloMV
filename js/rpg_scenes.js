@@ -1491,7 +1491,7 @@ Scene_Save.prototype.firstSavefileIndex = function() {
 Scene_Save.prototype.onSavefileOk = function() {
     Scene_File.prototype.onSavefileOk.call(this);
     $gameSystem.onBeforeSave();
-    if (DataManager.saveGame(this.savefileId())) {
+    if (Savepoints.saveGame(this.savefileId())) {
         this.onSaveSuccess();
     } else {
         this.onSaveFailure();
