@@ -16,10 +16,6 @@ Savepoints.getName = function(savefileId){
     return Savepoints.names[realID]
 }
 
-Savepoints.maxSavefiles = function() {
-    return Savepoints.names.length + 1;
-}
-
 
 //SAVE
 Savepoints.doAutosave = function(){
@@ -33,9 +29,9 @@ Savepoints.doAutosave = function(){
 }
 
 Savepoints.saveGame = function(savefileId) {
-    /*if(savefileId==1){
+    if(savefileId==1){
         return false;
-    }//NEW@TIM#SAVE*/
+    }//NEW@TIM#SAVE
     try {
         return DataManager.saveGameWithoutRescue(savefileId);
     } catch (e) {

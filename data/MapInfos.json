@@ -1,6 +1,5 @@
 [
 null,
-<<<<<<< HEAD
 {"id":1,"expanded":true,"name":"Police Station","order":1,"parentId":0,"scrollX":451,"scrollY":647.5},
 {"id":2,"expanded":false,"name":"Prison","order":2,"parentId":1,"scrollX":451,"scrollY":535.5},
 {"id":3,"expanded":false,"name":"Dark-Alley","order":7,"parentId":0,"scrollX":788,"scrollY":481},
@@ -11,16 +10,4 @@ null,
 {"id":8,"expanded":false,"name":"Innenraum Haus C：2E","order":5,"parentId":7,"scrollX":780,"scrollY":623},
 {"id":9,"expanded":false,"name":"Innenraum Haus C：1E","order":6,"parentId":7,"scrollX":780,"scrollY":563},
 {"id":10,"expanded":true,"name":"Casino","order":8,"parentId":0,"scrollX":780,"scrollY":821}
-=======
-{"id":1,"expanded":true,"name":"Police Station","order":1,"parentId":0,"scrollX":809,"scrollY":480},
-{"id":2,"expanded":false,"name":"Prison","order":2,"parentId":1,"scrollX":919,"scrollY":480},
-{"id":3,"expanded":false,"name":"Dark-Alley","order":4,"parentId":0,"scrollX":817,"scrollY":472},
-{"id":4,"expanded":false,"name":"Ha look at your nose","order":3,"parentId":1,"scrollX":809,"scrollY":480},
-{"id":5,"expanded":false,"name":"Spielhalle2 automaten links","order":6,"parentId":10,"scrollX":809,"scrollY":488},
-{"id":6,"expanded":false,"name":"Spielhalle1 klasisch rechts","order":7,"parentId":10,"scrollX":809,"scrollY":472},
-{"id":7,"expanded":true,"name":"Altes Haus","order":8,"parentId":0,"scrollX":809,"scrollY":968},
-{"id":8,"expanded":false,"name":"Innenraum Haus C：2E","order":9,"parentId":7,"scrollX":809,"scrollY":632},
-{"id":9,"expanded":false,"name":"Innenraum Haus C：1E","order":10,"parentId":7,"scrollX":605,"scrollY":759.5},
-{"id":10,"expanded":true,"name":"Casino","order":5,"parentId":0,"scrollX":809,"scrollY":472}
->>>>>>> b21d0fbc8c993e085c851215d5ae5a11af110bd6
 ]
