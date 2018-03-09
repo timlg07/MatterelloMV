@@ -1690,7 +1690,7 @@ Game_Action.prototype.makeDamageValue = function(target, critical) {
             qte.removePicture();
             qte.removeListener();
         }catch(e){alert(e.message)}
-    },800);
+    },1300);
     
     return value * qte.damageChange;//CHANGE@TIM|FABI#QTE
 };
