@@ -1683,8 +1683,14 @@ Game_Action.prototype.makeDamageValue = function(target, critical) {
     value = this.applyGuard(value, target);
     value = Math.round(value);
     
-    var qte = new quickTimeEvent();//NEW@TIM|FABI#QTE
-    qte.start(target.isActor);//NEW@TIM|FABI#QTE
+    var qte = new quickTimeEvent(target.isActor);//NEW@TIM|FABI#QTE
+    qte.start();//NEW@TIM|FABI#QTE
+    setTimeout(function(){
+        try{
+            qte.removePicture();
+            qte.removeListener();
+        }catch(e){alert(e.message)}
+    },1500);
     
     return value * qte.damageChange;//CHANGE@TIM|FABI#QTE
 };
