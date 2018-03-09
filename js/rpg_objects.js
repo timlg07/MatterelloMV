@@ -1682,7 +1682,11 @@ Game_Action.prototype.makeDamageValue = function(target, critical) {
     value = this.applyVariance(value, item.damage.variance);
     value = this.applyGuard(value, target);
     value = Math.round(value);
-    return value;
+    
+    var qte = new quickTimeEvent();//NEW@TIM|FABI#QTE
+    qte.start(target.isActor);//NEW@TIM|FABI#QTE
+    
+    return value * qte.damageChange;//CHANGE@TIM|FABI#QTE
 };
 
 Game_Action.prototype.evalDamageFormula = function(target) {

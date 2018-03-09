@@ -1644,14 +1644,10 @@ SceneManager.updateInputData = function() {
 };
 
 SceneManager.updateMain = function() {
-    try{
-        this.changeScene();
-        this.updateScene();
-        this.renderScene();
-        this.requestUpdate();
-    }catch(e){
-        alert(e.name+"at rpg_managers.js:1646");
-    }//NEW@TIM#SAVE
+    this.changeScene();
+    this.updateScene();
+    this.renderScene();
+    this.requestUpdate();
 };
 
 SceneManager.changeScene = function() {
