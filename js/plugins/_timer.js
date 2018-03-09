@@ -57,7 +57,7 @@ function Timer() {
     this.update = function() {
         if(this._working&&this._frames>0){
             this._frames--;
-            if(this._frames===0){
+            if(this._frames==0){
                 this.onExpire();
             }
         }

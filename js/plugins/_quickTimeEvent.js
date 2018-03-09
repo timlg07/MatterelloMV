@@ -6,22 +6,19 @@ function quickTimeEvent(){
         
         if(Math.random()<0.50)return;
         
-        alert("qte called")
-        
         this.char = this.randomChar("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
         this.showPicture(this.char);
         
-        this.timer = new Timer();
-        this.timer.setFrames(90);
         
         SceneManager._scene._waitCount += 90; 
         
         window.addEventListener('keydown', this.KeyListener);
         
-        this.timer.onExpire = function(){
+        setTimeout(function(){
+            alert("Timeout");
             this.removePicture();
-            window.removeEventListener('keydown', this.KeyListener);
-        }
+            this.removeListener();
+        },1500);
     }
     
     this.randomChar = function(possible){
@@ -29,27 +26,35 @@ function quickTimeEvent(){
     }
     
     this.showPicture = function(){
-        alert("showPicture called")
-        this.picture_xPos = Graphics.width  / 2;
+        //alert("showPicture called")
+        /*this.picture_xPos = Graphics.width  / 2;
         this.picture_yPos = Graphics.height / 2;
-        $gameScreen.showPicture(0,this.char,"\\qte\\"+this.char+".png", 1, this.picture_xPos, this.picture_yPos, 50, 50, 255, 0);
+        $gameScreen.showPicture(0,this.char,"\\qte\\"+this.char+".png", 1, this.picture_xPos, this.picture_yPos, 50, 50, 255, 0);*/
     }
     
     this.removePicture = function(){
-        $gameScreen.eraseBattlePictures();
+        alert("removePicture called")
+        //$gameScreen.eraseBattlePictures();
     }
     
     this.KeyListener = function(e){
+        alert("KeyListener called")
         if(String.charCodeAt(this.char)==e.keyCode){
-                this.removePicture();
-                if(this.isPlayerOnAttack){
-                    //increasePlayerDamage
-                    this.damageChange = 2.0;
-                }else{
-                    //decreaseEnemyDamage
-                    this.damageChange = 0.5;
-                }
-            }
+            alert("Key is correct")/*
+            this.removePicture();
+            if(this.isPlayerOnAttack){
+                //increasePlayerDamage
+                this.damageChange = 2.0;
+            }else{
+                //decreaseEnemyDamage
+                this.damageChange = 0.5;
+            }*/
+            this.removeListener();
+        }
+    }
+    
+    this.removeListener = function(){
+        window.removeEventListener('keydown', this.KeyListener);
     }
             
 }
