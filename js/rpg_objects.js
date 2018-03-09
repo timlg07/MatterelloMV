@@ -1205,7 +1205,12 @@ Game_Action.HITTYPE_CERTAIN         = 0;
 Game_Action.HITTYPE_PHYSICAL        = 1;
 Game_Action.HITTYPE_MAGICAL         = 2;
 
+
 Game_Action.prototype.initialize = function(subject, forcing) {
+    
+    this.playerDamageIncrease = 1;//NEW@TIM#QTE
+    this.enemy_DamageDecrease = 1;//NEW@TIM#QTE
+    
     this._subjectActorId = 0;
     this._subjectEnemyIndex = -1;
     this._forcing = forcing || false;
@@ -1683,17 +1688,7 @@ Game_Action.prototype.makeDamageValue = function(target, critical) {
     value = this.applyGuard(value, target);
     value = Math.round(value);
     
-    /*var qte = new quickTimeEvent(target.isActor);//NEW@TIM|FABI#QTE
-    qte.start();//NEW@TIM|FABI#QTE
-    setTimeout(function(){
-        try{
-            qte.removePicture();
-            qte.removeListener();
-        }catch(e){alert(e.message)}
-    },1300);
-    
-    return value * qte.damageChange;//CHANGE@TIM|FABI#QTE
-    */
+    //QUICKTIMEEVENTS_ORIGINAL
     return value;
 };
 
@@ -1744,6 +1739,31 @@ Game_Action.prototype.applyGuard = function(damage, target) {
 
 Game_Action.prototype.executeDamage = function(target, value) {
     var result = target.result();
+    
+    //=======// QUICK TIME EVENT //==========//
+    var qte = new quickTimeEvent(target.isActor);//NEW@TIM|FABI#QTE
+    qte.start();//NEW@TIM|FABI#QTE
+    setInterval((function(is_Actor){
+        if(!qte.isRunning){
+            if(is_Actor){
+                this.playerDamageIncrease = qte.damageChange;
+            }else{
+                this.enemy_DamageDecrease = qte.damageChange;
+            }
+        }
+    })(target.isActor),69);
+    
+    if(target.isActor){
+        var temp = this.playerDamageIncrease;
+        this.playerDamageIncrease = 1;
+        value *= temp;
+    }else{
+        var temp = this.enemy_DamageDecrease;
+        this.enemy_DamageDecrease = 1;
+        value *= temp;
+    }
+    //=======// QUICK TIME EVENT //==========//
+    
     if (value === 0) {
         result.critical = false;
     }
