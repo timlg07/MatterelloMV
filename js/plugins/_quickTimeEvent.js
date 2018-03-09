@@ -29,9 +29,11 @@ function quickTimeEvent(isPlayerOnAttack){
             50, 50, 255, 0
         );*/
         var sprite = new Sprite();
-        sprite.bitmap =ImageManager.loadPicture(this.char);
-        sprite.x=Graphics.width  / 2
-        sprite.y=Graphics.height / 2
+        sprite.bitmap = ImageManager.loadPicture(this.char);
+        sprite.x = Graphics.width  / 2;
+        sprite.y = Graphics.height / 2;
+        sprite.opacity = 255;
+        SceneManager._scene.addChild(sprite);
     }
     
     this.removePicture = function(){
