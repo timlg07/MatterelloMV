@@ -31,8 +31,8 @@ function quickTimeEvent(isPlayerOnAttack){
     
     this.KeyListener = function(e){
         alert("KeyListener called")
-        if(String.charCodeAt(this.char)==e.keyCode){
-            alert("Key is correct")/*
+        /*if(String.charCodeAt(this.char)==e.keyCode){
+            alert("Key is correct")
             this.removePicture();
             if(this.isPlayerOnAttack){
                 //increasePlayerDamage
@@ -40,9 +40,9 @@ function quickTimeEvent(isPlayerOnAttack){
             }else{
                 //decreaseEnemyDamage
                 this.damageChange = 0.5;
-            }*/
+            }
             this.removeListener();
-        }
+        }*/
     }
     
     this.removeListener = function(){
