@@ -20,9 +20,14 @@ function quickTimeEvent(isPlayerOnAttack){
     }
     
     this.showPicture = function(){
-        /*this.picture_xPos = Graphics.width  / 2;
-        this.picture_yPos = Graphics.height / 2;
-        $gameScreen.showPicture(0,this.char,"\\qte\\"+this.char+".png", 1, this.picture_xPos, this.picture_yPos, 50, 50, 255, 0);*/
+        $gameScreen.showPicture(
+            0,this.char,
+            this.char+".png",
+            1,
+            Graphics.width  / 2,
+            Graphics.height / 2,
+            50, 50, 255, 0
+        );
     }
     
     this.removePicture = function(){
