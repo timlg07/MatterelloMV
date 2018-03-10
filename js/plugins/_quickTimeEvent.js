@@ -8,6 +8,7 @@ function quickTimeEvent(isPlayerOnAttack){
     this.enemy_DamageDecrease =  2.0; //divisor
     this.maxReactionTime      = 1500; //in ms
     this.appearProbability    =   37; //percentage
+    this.showGraphicalRespond =  150; //in ms
     
     // [do not change anything below here]
     //=======// CONFIG // END   //========//
@@ -29,8 +30,8 @@ function quickTimeEvent(isPlayerOnAttack){
         window.addEventListener('keydown', this.keyListener);
         
         this.timerId = setTimeout(function(){
-            that.removePicture ();
             that.removeListener();
+            that.onFailure     ();
         },  that.maxReactionTime);
     }
     
@@ -60,14 +61,40 @@ function quickTimeEvent(isPlayerOnAttack){
     this.keyListener = function(e){try{
         clearTimeout(that.timerId);
         if((that.char.charCodeAt(0))==e.keyCode){
-            that.removePicture();
+            that.onSuccess();
             if(that.isPlayerOnAttack){
                 that.damageChange = 1*this.playerDamageIncrease;
             }else{
                 that.damageChange = 1/this.enemy_DamageDecrease;
             }
             that.removeListener();
+        }else{
+            that.onFailure();
         }}catch(e){alert(e.message)}
+    }
+    
+    this.onFailure = function(){try{
+        this.sprite.bitmap = ImageManager.loadPicture("onFailure");
+        setTimeout(function(){
+            that.removePicture();
+        },this.showGraphicalRespond);
+        }catch(e){alert(e.message)}
+    }
+    
+    this.onSuccess = function(){try{
+        this.sprite.bitmap = ImageManager.loadPicture("onSuccess");
+        setTimeout(function(){
+            that.removePicture();
+        },this.showGraphicalRespond);
+        }catch(e){alert(e.message)}
     }
             
 }
+
+
+
+
+
+
+
+
