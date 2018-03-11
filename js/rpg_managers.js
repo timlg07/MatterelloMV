@@ -955,6 +955,7 @@ AudioManager.playBgs = function(bgs, pos) {
         this.updateBgsParameters(bgs);
     } else {
         this.stopBgs();
+        if (!bgs) return false;//NEW@TIM#AUTOSAVE
         if (bgs.name) {
             this._bgsBuffer = this.createBuffer('bgs', bgs.name);
             this.updateBgsParameters(bgs);
