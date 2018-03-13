@@ -1207,10 +1207,6 @@ Game_Action.HITTYPE_MAGICAL         = 2;
 
 
 Game_Action.prototype.initialize = function(subject, forcing) {
-    
-    this.playerDamageIncrease = 1;//NEW@TIM#QTE
-    this.enemy_DamageDecrease = 1;//NEW@TIM#QTE
-    
     this._subjectActorId = 0;
     this._subjectEnemyIndex = -1;
     this._forcing = forcing || false;
@@ -1737,43 +1733,7 @@ Game_Action.prototype.applyGuard = function(damage, target) {
     return damage / (damage > 0 && target.isGuard() ? 2 * target.grd : 1);
 };
 
-Game_Action.prototype.executeDamage = function(target, value) {
-    var result = target.result();
-    
-    //=======// QUICK TIME EVENT //==========//
-    var qte = new quickTimeEvent(target.isActor);//NEW@TIM|FABI#QTE
-    qte.start();//NEW@TIM|FABI#QTE
-    setInterval((function(is_Actor){
-        if(!qte.isRunning){
-            if(is_Actor){
-                this.playerDamageIncrease = qte.damageChange;
-            }else{
-                this.enemy_DamageDecrease = qte.damageChange;
-            }
-        }
-    })(target.isActor),69);
-    
-    if(target.isActor){
-        var temp = this.playerDamageIncrease;
-        this.playerDamageIncrease = 1;
-        value *= temp;
-    }else{
-        var temp = this.enemy_DamageDecrease;
-        this.enemy_DamageDecrease = 1;
-        value *= temp;
-    }
-    //=======// QUICK TIME EVENT //==========//
-    
-    if (value === 0) {
-        result.critical = false;
-    }
-    if (this.isHpEffect()) {
-        this.executeHpDamage(target, value);
-    }
-    if (this.isMpEffect()) {
-        this.executeMpDamage(target, value);
-    }
-};
+//REMOVE@TIM#QTE
 
 Game_Action.prototype.executeHpDamage = function(target, value) {
     if (this.isDrain()) {

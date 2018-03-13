@@ -15,17 +15,22 @@ function quickTimeEvent(isPlayerOnAttack){
     
     this.damageChange = 1;//default, when nothing happens
     this.isPlayerOnAttack = isPlayerOnAttack;//isPlayerOnAttack ? target=player : target=enemy
-    this.isRunning = false;
     var that = this;//used in Listener and Timeout
     
     /**
      * starts the Quick Time Event
      */
-    this.start = function(){
+    this.start = function(target,value,gameAction){
         
-        if(Math.random()>this.appearProbability/100)return;
+        this.target = target;
+        this.value  = value;
+        this.gameAction = gameAction;
         
-        this.isRunning = true;
+        if(Math.random()>this.appearProbability/100){
+            this.executeDamage();
+            return;
+        }
+        
         this.char = this.randomChar("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
         this.showPicture();
         
@@ -74,8 +79,6 @@ function quickTimeEvent(isPlayerOnAttack){
      */
     this.removeListener = function(){
         window.removeEventListener('keydown', this.keyListener);
-        
-        this.isRunning = false;
     }
     
     /**
@@ -86,11 +89,12 @@ function quickTimeEvent(isPlayerOnAttack){
         if((that.char.charCodeAt(0))==e.keyCode){
             that.onSuccess();
             if(that.isPlayerOnAttack){
-                that.damageChange = 1*this.playerDamageIncrease;
+                that.damageChange = 1*that.playerDamageIncrease;
             }else{
-                that.damageChange = 1/this.enemy_DamageDecrease;
+                that.damageChange = 1/that.enemy_DamageDecrease;
             }
             that.removeListener();
+            that.executeDamage();
         }else{
             that.onFailure();
         }}catch(e){alert(e.message)}
@@ -117,5 +121,28 @@ function quickTimeEvent(isPlayerOnAttack){
         },this.showGraphicalRespond);
         }catch(e){alert(e.message)}
     }
-            
+    
+    this.executeDamage = function(){
+        this.value *= this.damageChange;
+        this.gameAction.executeDamageWithQTE(this.target,this.value);
+    }
+}
+    
+Game_Action.prototype.executeDamage = function(target, value) {
+    var result = target.result();
+    var qte = new quickTimeEvent(!target.isActor());
+    qte.start(target, value, this);
+};
+
+Game_Action.prototype.executeDamageWithQTE = function(target, value){
+    var result = target.result();
+    if (value === 0) {
+        result.critical = false;
+    }
+    if (this.isHpEffect()) {
+        this.executeHpDamage(target, value);
+    }
+    if (this.isMpEffect()) {
+        this.executeMpDamage(target, value);
+    }
 }
