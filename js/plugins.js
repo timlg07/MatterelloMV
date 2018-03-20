@@ -9,5 +9,6 @@ var $plugins =
 {"name":"_timer","status":true,"description":"","parameters":{}},
 {"name":"_updater","status":true,"description":"","parameters":{}},
 {"name":"_quickTimeEvent","status":true,"description":"","parameters":{}},
-{"name":"_lightEffects","status":true,"description":"","parameters":{}}
+{"name":"_lightEffects","status":true,"description":"","parameters":{}},
+{"name":"_flashback","status":true,"description":"","parameters":{}}
 ];
