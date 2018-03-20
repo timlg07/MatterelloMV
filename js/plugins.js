@@ -8,5 +8,6 @@ var $plugins =
 {"name":"_savepoints","status":true,"description":"","parameters":{}},
 {"name":"_timer","status":true,"description":"","parameters":{}},
 {"name":"_updater","status":true,"description":"","parameters":{}},
-{"name":"_quickTimeEvent","status":true,"description":"","parameters":{}}
+{"name":"_quickTimeEvent","status":true,"description":"","parameters":{}},
+{"name":"_lightEffects","status":true,"description":"","parameters":{}}
 ];
