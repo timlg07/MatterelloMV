@@ -8,8 +8,6 @@ function SlotMachine(){
     // [do not change anything below here]
     //=======// CONFIG // END   //========//
     
-    var that = this;
-    
     this.create = function(){
         window.slotMachineObject = this;
         return window.slotMachineObject;
@@ -30,6 +28,7 @@ function SlotMachine(){
         
         this.sprite = new Sprite();
         this.sprite.bitmap = new Bitmap(this.size.width, this.size.height);
+        //this.sprite.bitmap.fillAll('white');
         this.sprite.x = 0;
         this.sprite.y = 0;
         this.sprite.opacity = 255;
@@ -42,76 +41,14 @@ function SlotMachine(){
         SceneManager._scene.removeChild(this.sprite);
     }
     
-    this.initUpdate = function(){
-        this.updateID = setInterval(function(){
-            window.slotMachineObject.update();
-        },1000/this.fps);
-    }
-    
     this.update = function(){
         this.gameObject.frames++;
         this.showGraphics();
     }
     
-    this.initGraphics = function(){
-        this.loadCount= 8;
-        this.graphics = {
-            symbols : [
-                this.newImage("sym_1.png"),
-                this.newImage("sym_2.png"),
-                this.newImage("sym_3.png"),
-                this.newImage("sym_4.png"),
-                this.newImage("sym_5.png"),
-            ],
-            frame   : 
-                this.newImage("Frame.png"),
-            main_BG : 
-                this.newImage("mainB.png"),
-            main_FG :
-                this.newImage("mainF.png"),
-        }
-    }
-    
-    this.newImage = function(fname){
-        var img = new Image();
-        img.addEventListener('load',function(){
-            if(--window.slotMachineObject.loadCount<1)window.slotMachineObject.initUpdate();
-        },false);
-        img.src = 'img/pictures/slotMachine/' + fname;
-        return img;
-    }
-    
     this.showGraphics = function(){
-        this.sprite.bitmap.drawImage(
-            this.graphics.main_BG, 
-            this.size.width  / 2 - this.graphics.main_BG.width ,
-            this.size.height / 2 - this.graphics.main_BG.height,
-            this.graphics.main_BG.width  * 2,
-            this.graphics.main_BG.height * 2
-        );
-        
-        //REST
-        
-        this.sprite.bitmap.drawImage(
-            this.graphics.main_FG, 
-            this.size.width  / 2 - this.graphics.main_FG.width ,
-            this.size.height / 2 - this.graphics.main_FG.height,
-            this.graphics.main_FG.width  * 2,
-            this.graphics.main_FG.height * 2
-        );
-            
-    }
-    //ACCESS TO THE CANVAS 2D CONTEXT:
-    Bitmap.prototype.getContext = function(){
-        return this._context;
-    }
-    //DRAW IMAGE TO THE CANVAS 2D CONTEXT:
-    Bitmap.prototype.drawImage = function(image,x,y,w,h){
-        var ctx = this._context;
-        ctx.save();
-        ctx.drawImage(image,x,y,w,h);
-        ctx.restore();
-        this._setDirty();
+        //PhotoshopTiedtzcke's Grafiken werden hier angezeigt
+        //Falls es die irgendwann mal geben sollte
     }
     
     this.askPlayer = function(){
@@ -140,11 +77,10 @@ function SlotMachine(){
              mid    : [],
              right  : []
         }
-        this.initGraphics();
+        this.updateID = setInterval(this.update,1000/this.fps);
     }
     
     this.cancel = function(){
-        clearInterval(this.updateID);
         this.sprite.bitmap.clear();
         this.hideSprite();
         window.slotMachineObject = null;
