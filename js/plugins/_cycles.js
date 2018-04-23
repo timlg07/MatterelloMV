@@ -31,18 +31,17 @@ function cycles()
 
 /**
  * initializes cycles
- * @method start
+ * @method init
  * @author Tim Greller
  *
- * @param {Object} A Object from the 'simulatedTime' class.
+ * @return {Object} the default cycles object
  */
-cycles.start = function(t)
+cycles.init = function()
 {
-    if(!( t instanceof simulatedTime )) throw new Error('_cycles.js > cycles.start: t is no instance of simulatedTime.');
-    if(!( typeof window._cycles === 'undefined' )) throw new Error('_cycles.js > cycles.start: already initialized.');
+    if( $cycles != null ) throw new Error('_cycles.js > cycles.init: already initialized.');
         
-    window._cycles = {
-        currentTime: t,
+    return {
+        currentTime: new simulatedTime( {ms:0} ),
         
         currentWeather: 'none',
         currentWeatherPower : 0,
@@ -52,6 +51,7 @@ cycles.start = function(t)
     };
 }
 
+
 /**
  * stops updating cycles
  * @method stop
@@ -59,8 +59,8 @@ cycles.start = function(t)
  */
 cycles.stop = function()
 {
-    if( typeof window._cycles === 'undefined' ) throw new Error('_cycles.js > cycles.stop: not initialized.');
-    clearInterval(window._cycles.interval_ID);
+    if( typeof $cycles === 'undefined' || $cycles == null) throw new Error('_cycles.js > cycles.stop: not initialized.');
+    clearInterval($cycles.interval_ID);
 }
 
 
@@ -72,12 +72,12 @@ cycles.stop = function()
  */
 cycles.update = function()
 {
-    window._cycles.currentTime.add( {msec:cycles.THROTTLE_INTERVAL} );
-    window._cycles.weatherCoolDown -=     cycles.THROTTLE_INTERVAL;
+    $cycles.currentTime.add( {msec:cycles.THROTTLE_INTERVAL} );
+    $cycles.weatherCoolDown -=     cycles.THROTTLE_INTERVAL;
     
-    if( window._cycles.weatherCoolDown <  cycles.THROTTLE_INTERVAL ) 
+    if( $cycles.weatherCoolDown <  cycles.THROTTLE_INTERVAL ) 
     {
-        window._cycles.weatherCoolDown =  cycles.WEATHER_CHANGE_MIN_COOLDOWN;
+        $cycles.weatherCoolDown =  cycles.WEATHER_CHANGE_MIN_COOLDOWN;
         cycles.weatherChange();
     }
     
@@ -98,8 +98,8 @@ cycles.weatherChange = function()
     else
     {
         $gameScreen.changeWeather(
-            window._cycles.currentWeather, 
-            window._cycles.currentWeatherPower, 
+            $cycles.currentWeather, 
+            $cycles.currentWeatherPower, 
             cycles.WEATHER_CHANGE_MIN_COOLDOWN/1000 * 60
         );
     }
@@ -114,15 +114,15 @@ cycles.performWeatherChange = function()
 {
     var power      = Math.random() * 8 + 1; // to avoid power=0; [power in range(0..9)]
     var duration   = cycles.WEATHER_CHANGE_MIN_COOLDOWN/1000 * 60; //60FPS
-    var newWeather = window._cycles.currentWeather;
+    var newWeather = $cycles.currentWeather;
     do
     {
         newWeather = cycles.WETHER_TYPES[ Math.floor ( Math.random() * cycles.WETHER_TYPES.length ) ];
     }
-    while(newWeather === window._cycles.currentWeather);
+    while(newWeather === $cycles.currentWeather);
           
-    window._cycles.currentWeather = newWeather;
-    window._cycles.currentWeatherPower = power;
+    $cycles.currentWeather = newWeather;
+    $cycles.currentWeatherPower = power;
     
     $gameScreen.changeWeather(newWeather, power, duration);
 }
