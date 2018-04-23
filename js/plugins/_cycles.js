@@ -10,8 +10,8 @@
 
 
 //======// CONFIG //======//
-cycles.SPEED = 6; // How many times faster the simulated time should go in comparison to the real time // d=6x
-cycles.WEATHER_CHANGE_MIN_COOLDOWN = 6  * ( 60 * 1000 ); // The interval when weather could change in MS[simulated] // d=6min
+cycles.SPEED = 144; // How many times faster the simulated time should go in comparison to the real time // d=144x -> 1d^=10min
+cycles.WEATHER_CHANGE_MIN_COOLDOWN = 3 * (60*60*1000); // The interval when weather could change in MS[simulated] // d=3h^=1min
 cycles.WEATHER_CHANGE_CHANCE = 10; // The cance of weather changing in percent // d=10%
 cycles.WETHER_TYPES = ['none', 'rain', 'storm', 'snow']; // all possible types of weather
 cycles.THROTTLE_INTERVAL = 60; // lower interval, but same speed // higher value for higher performance
