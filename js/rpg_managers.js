@@ -210,6 +210,9 @@ DataManager.createGameObjects = function() {
     $gamePlayer        = new Game_Player();
     $updater           = new Updater (); //NEW@TIM#UPDATER
     $cycles            = cycles.init(); //NEW@TIM#CYCLES
+    
+    
+    if(! $cycles.isRunning) cycles.start(); //NEW@TIM#CYCLES
 };
 
 DataManager.setupNewGame = function() {

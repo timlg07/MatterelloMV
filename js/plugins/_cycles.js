@@ -10,11 +10,11 @@
 
 
 //======// CONFIG //======//
-cycles.SPEED = 6; // How many times faster the simulated time should go in comparison to the real time
-cycles.WEATHER_CHANGE_MIN_COOLDOWN = 6  * ( 60 * 1000 ); // The interval when weather could change in MS[simulated]
-cycles.WEATHER_CHANGE_CHANCE = 10; // The cance of weather changing in percent
+cycles.SPEED = 6; // How many times faster the simulated time should go in comparison to the real time // d=6x
+cycles.WEATHER_CHANGE_MIN_COOLDOWN = 6  * ( 60 * 1000 ); // The interval when weather could change in MS[simulated] // d=6min
+cycles.WEATHER_CHANGE_CHANCE = 10; // The cance of weather changing in percent // d=10%
 cycles.WETHER_TYPES = ['none', 'rain', 'storm', 'snow']; // all possible types of weather
-cycles.THROTTLE_INTERVAL = 10; // lower interval, but same speed // higher value for higher performance
+cycles.THROTTLE_INTERVAL = 60; // lower interval, but same speed // higher value for higher performance
 //======// CONFIG //======//
 
 
@@ -38,8 +38,6 @@ function cycles()
  */
 cycles.init = function()
 {
-    if( $cycles != null ) throw new Error('_cycles.js > cycles.init: already initialized.');
-        
     return {
         currentTime: new simulatedTime( {ms:0} ),
         
@@ -47,10 +45,19 @@ cycles.init = function()
         currentWeatherPower : 0,
         weatherCoolDown: cycles.WEATHER_CHANGE_MIN_COOLDOWN,
         
-        interval_ID: setInterval(cycles.update,cycles.THROTTLE_INTERVAL/cycles.SPEED) // call the update function every second
+        intervalID: null,
+        isRunning : false
     };
 }
 
+cycles.start = function()
+{
+    $cycles.intervalID = setInterval( 
+        cycles.update, 
+        cycles.THROTTLE_INTERVAL/cycles.SPEED
+    ); // call the update function every millisecond[simulted] | throttled down |
+    $cycles.isRunning = true;
+}
 
 /**
  * stops updating cycles
@@ -60,7 +67,7 @@ cycles.init = function()
 cycles.stop = function()
 {
     if( typeof $cycles === 'undefined' || $cycles == null) throw new Error('_cycles.js > cycles.stop: not initialized.');
-    clearInterval($cycles.interval_ID);
+    clearInterval($cycles.intervalID);
 }
 
 
@@ -80,7 +87,6 @@ cycles.update = function()
         $cycles.weatherCoolDown =  cycles.WEATHER_CHANGE_MIN_COOLDOWN;
         cycles.weatherChange();
     }
-    
 }
 
 
@@ -121,6 +127,8 @@ cycles.performWeatherChange = function()
     }
     while(newWeather === $cycles.currentWeather);
           
+    alert("weather changed from "+$cycles.currentWeather+"(power="+$cycles.currentWeatherPower+") to "+newWeather+"(power="+power+")")
+    
     $cycles.currentWeather = newWeather;
     $cycles.currentWeatherPower = power;
     
@@ -168,7 +176,7 @@ function simulatedTime(timeObj)
  *
  * @return {Number} Amount of days from this.value
  */
-simulatedTime.getTotalDays = function()
+simulatedTime.prototype.getTotalDays = function()
 {
     return Math.floor( this.value / 24 / 60 / 60 / 1000 );
 }
@@ -180,7 +188,7 @@ simulatedTime.getTotalDays = function()
  *
  * @return {Number} Amount of hours from this.value
  */
-simulatedTime.getTotalHours = function()
+simulatedTime.prototype.getTotalHours = function()
 {
     return Math.floor( this.value / 60 / 60 / 1000 );
 }
@@ -192,7 +200,7 @@ simulatedTime.getTotalHours = function()
  *
  * @return {Number} Amount of minutes from this.value
  */
-simulatedTime.getTotalMinutes = function()
+simulatedTime.prototype.getTotalMinutes = function()
 {
     return Math.floor( this.value / 60 / 1000 );
 }
@@ -204,7 +212,7 @@ simulatedTime.getTotalMinutes = function()
  *
  * @return {Number} Amount of seconds from this.value
  */
-simulatedTime.getTotalSeconds = function()
+simulatedTime.prototype.getTotalSeconds = function()
 {
     return Math.floor( this.value / 1000 );
 }
@@ -216,7 +224,7 @@ simulatedTime.getTotalSeconds = function()
  *
  * @return {Number} Amount of milliseconds from this.value
  */
-simulatedTime.getTotalMilliseconds = function()
+simulatedTime.prototype.getTotalMilliseconds = function()
 {
     return Math.floor( this.value );
 }
@@ -229,7 +237,7 @@ simulatedTime.getTotalMilliseconds = function()
  *
  * @return {Number} Amount of days from this.value
  */
-simulatedTime.getAdditionalDays = function()
+simulatedTime.prototype.getAdditionalDays = function()
 {
     return Math.floor( this.getTotalDays() );
 }
@@ -241,7 +249,7 @@ simulatedTime.getAdditionalDays = function()
  *
  * @return {Number} Amount of additional hours
  */
-simulatedTime.getAdditionalHours = function()
+simulatedTime.prototype.getAdditionalHours = function()
 {
     return Math.floor( this.getTotalHours() % 24 );
 }
@@ -253,7 +261,7 @@ simulatedTime.getAdditionalHours = function()
  *
  * @return {Number} Amount of additional minutes
  */
-simulatedTime.getAdditionalMinutes = function()
+simulatedTime.prototype.getAdditionalMinutes = function()
 {
     return Math.floor( this.getTotalMinutes() % 60 );
 }
@@ -265,7 +273,7 @@ simulatedTime.getAdditionalMinutes = function()
  *
  * @return {Number} Amount of additional seconds
  */
-simulatedTime.getAdditionalSeconds = function()
+simulatedTime.prototype.getAdditionalSeconds = function()
 {
     return Math.floor( this.getTotalSeconds() % 60 );
 }
@@ -277,7 +285,7 @@ simulatedTime.getAdditionalSeconds = function()
  *
  * @return {Number} Amount of additional milliseconds
  */
-simulatedTime.getAdditionalMilliseconds = function()
+simulatedTime.prototype.getAdditionalMilliseconds = function()
 {
     return Math.floor( this.getTotalMilliseconds() % 1000 );
 }
@@ -293,7 +301,7 @@ simulatedTime.getAdditionalMilliseconds = function()
  * @param {Object} The time object can contain different values:
  *                 days, hour, mins, secs, msec;
  */
-simulatedTime.add = function(timeObj)
+simulatedTime.prototype.add = function(timeObj)
 {
     if('msec' in timeObj) this.value += timeObj.msec * 1 ;
     if('secs' in timeObj) this.value += timeObj.secs * 1 * 1000 ;
