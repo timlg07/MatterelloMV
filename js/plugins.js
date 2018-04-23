@@ -11,5 +11,6 @@ var $plugins =
 {"name":"_quickTimeEvent","status":true,"description":"","parameters":{}},
 {"name":"_lightEffects","status":true,"description":"","parameters":{}},
 {"name":"_flashback","status":true,"description":"","parameters":{}},
-{"name":"_slotMachine","status":true,"description":"","parameters":{}}
+{"name":"_slotMachine","status":true,"description":"","parameters":{}},
+{"name":"_cycles","status":true,"description":"","parameters":{}}
 ];
