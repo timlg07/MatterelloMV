@@ -41,6 +41,7 @@ var $gameMap          = null;
 var $gamePlayer       = null;
 var $testEvent        = null;
 var $updater          = null;//NEW@TIM#UPDATER
+var $cycles           = null;//NEW@TIM#CYCLES
 
 
 DataManager._globalId       = 'RPGMV';
@@ -207,7 +208,11 @@ DataManager.createGameObjects = function() {
     $gameTroop         = new Game_Troop();
     $gameMap           = new Game_Map();
     $gamePlayer        = new Game_Player();
-    $updater           = new Updater(); //NEW@TIM#UPDATER
+    $updater           = new Updater (); //NEW@TIM#UPDATER
+    $cycles            = cycles.init(); //NEW@TIM#CYCLES
+    
+    
+    if(! $cycles.isRunning) cycles.start(); //NEW@TIM#CYCLES
 };
 
 DataManager.setupNewGame = function() {
@@ -438,6 +443,7 @@ DataManager.makeSaveContents = function() {
     contents.party        = $gameParty;
     contents.map          = $gameMap;
     contents.player       = $gamePlayer;
+    contents.cycles       = $cycles; //NEW@TIM#CYCLES
     return contents;
 };
 
@@ -452,6 +458,7 @@ DataManager.extractSaveContents = function(contents) {
     $gameParty         = contents.party;
     $gameMap           = contents.map;
     $gamePlayer        = contents.player;
+    $cycles            = contents.cycles; //NEW@TIM#CYCLES
 };
 
 //-----------------------------------------------------------------------------

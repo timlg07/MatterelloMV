@@ -26,7 +26,7 @@ function quickTimeEvent(isPlayerOnAttack){
         this.value  = value;
         this.gameAction = gameAction;
         
-        if(Math.random()>this.appearProbability/100){
+        if(Math.random() < this.appearProbability/100){
             this.executeDamage();
             return;
         }
