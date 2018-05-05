@@ -154,6 +154,8 @@ cycles.performWeatherChange = function()
     $gameScreen.changeWeather(newWeather, power, duration);
 }
 
+cycles.thunderboltState = 'inactive';
+
 /**
  * calls a thunderbolt with a certain chance
  * @method thunderbolt
@@ -161,7 +163,8 @@ cycles.performWeatherChange = function()
  */
 cycles.thunderbolt = function()
 {
-    if( Math.random() < cycles.THUNDERBOLT_APPEAR_CHANCE/100 )
+    if( Math.random() < cycles.THUNDERBOLT_APPEAR_CHANCE/100 &&
+        cycles.thunderboltState == "inactive" )
     {
         cycles.performThunderbolt();
     }
@@ -174,6 +177,8 @@ cycles.thunderbolt = function()
  */
 cycles.performThunderbolt = function()
 {
+    cycles.thunderboltState = 'active';
+    
     //thunderbolt sprite
     cycles.sprite = new Sprite();
     cycles.sprite.bitmap = new Bitmap(SceneManager._screenWidth, SceneManager._screenHeight);
