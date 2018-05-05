@@ -11,15 +11,16 @@
 
 //======// CONFIG //======//
 cycles.SPEED = 144; // How many times faster the simulated time should go in comparison to the real time // d=144x -> 1d^=10min
-cycles.WEATHER_CHANGE_MIN_COOLDOWN = 3 * (60*60*1000); // The interval when weather could change in MS[simulated] // d=3h^=1min
-cycles.WEATHER_CHANGE_CHANCE = 10; // The cance of weather changing in percent // d=10%
-cycles.WETHER_TYPES = ['none', 'rain', 'storm', 'snow']; // all possible types of weather
-cycles.THROTTLE_INTERVAL = 60; // lower interval, but same speed // higher value for higher performance
+cycles.WEATHER_CHANGE_MIN_COOLDOWN = 1 * (60*60*1000); // The interval when weather could change in MS[simulated] // d=3h^=75sec
+cycles.WEATHER_CHANGE_CHANCE = 100; // The chance of weather changing in percent // d=10%
+cycles.THUNDERBOLT_APPEAR_CHANCE = 0.1; // The chance of a lightning appers during storm in percentage // d=0.1
+cycles.WETHER_TYPES = [ 'none', 'none', 'rain', 'storm', 'snow' ];// possible types of weather; multiple entrys -> higher chance
+cycles.THROTTLE_INTERVAL = 10 * cycles.SPEED; // lower interval, but same speed // higher value for higher performance
 //======// CONFIG //======//
 
 
 /**
- * for day cycle and weather
+ * static class for day cycle and weather
  * @author Tim Greller
  * @method cycles
  * @static
@@ -41,8 +42,8 @@ cycles.init = function()
     return {
         currentTime: new simulatedTime( {ms:0} ),
         
-        currentWeather: 'none',
-        currentWeatherPower : 0,
+        currentWeather: cycles.WETHER_TYPES[ Math.floor ( Math.random() * cycles.WETHER_TYPES.length ) ],
+        currentWeatherPower : Math.random() * 8 + 1,
         weatherCoolDown: cycles.WEATHER_CHANGE_MIN_COOLDOWN,
         
         intervalID: null,
@@ -50,6 +51,11 @@ cycles.init = function()
     };
 }
 
+/**
+ * starts updating cycles
+ * @method start
+ * @author Tim Greller
+ */
 cycles.start = function()
 {
     $cycles.intervalID = setInterval( 
@@ -57,6 +63,19 @@ cycles.start = function()
         cycles.THROTTLE_INTERVAL/cycles.SPEED
     ); // call the update function every millisecond[simulted] | throttled down |
     $cycles.isRunning = true;
+    $gameScreen.changeWeather(
+        $cycles.currentWeather, 
+        $cycles.currentWeatherPower, 
+        cycles.WEATHER_CHANGE_MIN_COOLDOWN /1000 /cycles.SPEED * 60
+    );
+    //alert("weather set to "+$cycles.currentWeather+"(power="+$cycles.currentWeatherPower+")");
+    
+    //=================// THUNDERBOLT //================//
+    var alias = Weather.prototype._updateStormSprite;
+    Weather.prototype._updateStormSprite = function(sprite){
+        alias.call(this, sprite);
+        cycles.thunderbolt();
+    }
 }
 
 /**
@@ -119,7 +138,7 @@ cycles.weatherChange = function()
 cycles.performWeatherChange = function()
 {
     var power      = Math.random() * 8 + 1; // to avoid power=0; [power in range(0..9)]
-    var duration   = cycles.WEATHER_CHANGE_MIN_COOLDOWN/1000 * 60; //60FPS
+    var duration   = cycles.WEATHER_CHANGE_MIN_COOLDOWN /1000 /cycles.SPEED * 60; //60FPS
     var newWeather = $cycles.currentWeather;
     do
     {
@@ -127,7 +146,7 @@ cycles.performWeatherChange = function()
     }
     while(newWeather === $cycles.currentWeather);
           
-    alert("weather changed from "+$cycles.currentWeather+"(power="+$cycles.currentWeatherPower+") to "+newWeather+"(power="+power+")")
+    //alert("weather changed from "+$cycles.currentWeather+"(power="+$cycles.currentWeatherPower+") to "+newWeather+"(power="+power+"); duration="+duration/60+"s")
     
     $cycles.currentWeather = newWeather;
     $cycles.currentWeatherPower = power;
@@ -135,6 +154,43 @@ cycles.performWeatherChange = function()
     $gameScreen.changeWeather(newWeather, power, duration);
 }
 
+/**
+ * calls a thunderbolt with a certain chance
+ * @method thunderbolt
+ * @author Tim Greller
+ */
+cycles.thunderbolt = function()
+{
+    if( Math.random() < cycles.THUNDERBOLT_APPEAR_CHANCE/100 )
+    {
+        cycles.performThunderbolt();
+    }
+}
+
+/**
+ * shows a thunderbolt
+ * @method performThunderbolt
+ * @author Tim Greller
+ */
+cycles.performThunderbolt = function()
+{
+    //thunderbolt sprite
+    cycles.sprite = new Sprite();
+    cycles.sprite.bitmap = new Bitmap(SceneManager._screenWidth, SceneManager._screenHeight);
+    cycles.sprite.x = 0;
+    cycles.sprite.y = 0;
+    cycles.sprite.opacity = 190;
+    SceneManager._scene.addChild(cycles.sprite);
+    
+    //Fill White
+    cycles.sprite.bitmap.fillAll(this.color);
+    
+    //TIMEOUT
+    setTimeout(function(){
+        SceneManager._scene.removeChild(cycles.sprite);
+        cycles.sprite = null;
+    }, 60)
+}
 
 
 /***********************************\
