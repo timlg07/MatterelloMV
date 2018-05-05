@@ -183,7 +183,7 @@ cycles.performThunderbolt = function()
     SceneManager._scene.addChild(cycles.sprite);
     
     //Fill White
-    cycles.sprite.bitmap.fillAll(this.color);
+    cycles.sprite.bitmap.fillAll('#fff');
     
     //TIMEOUT
     setTimeout(function(){
