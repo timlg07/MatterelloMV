@@ -13,7 +13,7 @@
 cycles.SPEED = 144; // How many times faster the simulated time should go in comparison to the real time // d=144x -> 1d^=10min
 cycles.WEATHER_CHANGE_MIN_COOLDOWN = 1 * (60*60*1000); // The interval when weather could change in MS[simulated] // d=3h^=75sec
 cycles.WEATHER_CHANGE_CHANCE = 100; // The chance of weather changing in percent // d=10%
-cycles.THUNDERBOLT_APPEAR_CHANCE = 0.1; // The chance of a lightning appers during storm in percentage // d=0.1
+cycles.THUNDERBOLT_APPEAR_CHANCE = 0.02; // The chance of a lightning appers during storm in percentage // d=0.1
 cycles.WETHER_TYPES = [ 'none', 'none', 'rain', 'storm', 'snow' ];// possible types of weather; multiple entrys -> higher chance
 cycles.THROTTLE_INTERVAL = 10 * cycles.SPEED; // lower interval, but same speed // higher value for higher performance
 //======// CONFIG //======//
@@ -164,7 +164,7 @@ cycles.thunderboltState = 'inactive';
 cycles.thunderbolt = function()
 {
     if( Math.random() < cycles.THUNDERBOLT_APPEAR_CHANCE/100 &&
-        cycles.thunderboltState == "inactive" )
+        cycles.thunderboltState == 'inactive' )
     {
         cycles.performThunderbolt();
     }
@@ -194,7 +194,8 @@ cycles.performThunderbolt = function()
     setTimeout(function(){
         SceneManager._scene.removeChild(cycles.sprite);
         cycles.sprite = null;
-    }, 60)
+        cycles.thunderboltState = 'inactive';
+    }, 60 * ( Math.random + 0.75 ) )
 }
 
 
