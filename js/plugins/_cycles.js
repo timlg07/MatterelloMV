@@ -13,7 +13,7 @@
 cycles.SPEED = 144; // How many times faster the simulated time should go in comparison to the real time // d=144x -> 1d^=10min
 cycles.WEATHER_CHANGE_MIN_COOLDOWN = 1 * (60*60*1000); // The interval when weather could change in MS[simulated] // d=3h^=75sec
 cycles.WEATHER_CHANGE_CHANCE = 100; // The chance of weather changing in percent // d=10%
-cycles.THUNDERBOLT_APPEAR_CHANCE = 0.02; // The chance of a lightning appers during storm in percentage // d=0.1
+cycles.THUNDERBOLT_APPEAR_CHANCE = 0.015; // The chance of a lightning appers during storm in percentage // d=0.1
 cycles.WETHER_TYPES = [ 'none', 'none', 'rain', 'storm', 'snow' ];// possible types of weather; multiple entrys -> higher chance
 cycles.THROTTLE_INTERVAL = 10 * cycles.SPEED; // lower interval, but same speed // higher value for higher performance
 //======// CONFIG //======//
@@ -42,7 +42,8 @@ cycles.init = function()
     return {
         currentTime: new simulatedTime( {ms:0} ),
         
-        currentWeather: cycles.WETHER_TYPES[ Math.floor ( Math.random() * cycles.WETHER_TYPES.length ) ],
+        //currentWeather: cycles.WETHER_TYPES[ Math.floor ( Math.random() * cycles.WETHER_TYPES.length ) ],
+        currentWeather: cycles.WETHER_TYPES[3],
         currentWeatherPower : Math.random() * 8 + 1,
         weatherCoolDown: cycles.WEATHER_CHANGE_MIN_COOLDOWN,
         
@@ -184,7 +185,7 @@ cycles.performThunderbolt = function()
     cycles.sprite.bitmap = new Bitmap(SceneManager._screenWidth, SceneManager._screenHeight);
     cycles.sprite.x = 0;
     cycles.sprite.y = 0;
-    cycles.sprite.opacity = 190;
+    cycles.sprite.opacity = 150;
     SceneManager._scene.addChild(cycles.sprite);
     
     //Fill White
@@ -195,7 +196,7 @@ cycles.performThunderbolt = function()
         SceneManager._scene.removeChild(cycles.sprite);
         cycles.sprite = null;
         cycles.thunderboltState = 'inactive';
-    }, 60 * ( Math.random + 0.75 ) )
+    }, 60 * ( Math.random + 1 ) )
 }
 
 
