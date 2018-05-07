@@ -366,11 +366,27 @@ simulatedTime.prototype.getAdditionalMilliseconds = function()
  */
 simulatedTime.prototype.add = function(timeObj)
 {
+    var old = this;
+    
     if('msec' in timeObj) this.value += timeObj.msec * 1 ;
     if('secs' in timeObj) this.value += timeObj.secs * 1 * 1000 ;
     if('mins' in timeObj) this.value += timeObj.mins * 1 * 1000 * 60 ;
     if('hour' in timeObj) this.value += timeObj.hour * 1 * 1000 * 60 * 60 ;
     if('days' in timeObj) this.value += timeObj.days * 1 * 1000 * 60 * 60 * 24 ;
+    
+    this.onChange(old);
+}
+
+/**
+ * updating clock
+ * @author Tim Greller
+ * @method onChange
+ * 
+ * @param {Object} The simulatedTime before the change
+ */
+simulatedTime.prototype.onChange = function(simulatedTimeObj)
+{
+    
 }
 
 
