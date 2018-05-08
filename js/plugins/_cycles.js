@@ -13,7 +13,7 @@
 cycles.SPEED = 144; // How many times faster the simulated time should go in comparison to the real time // d=144x -> 1d^=10min
 cycles.WEATHER_CHANGE_MIN_COOLDOWN = 1 * (60*60*1000); // The interval when weather could change in MS[simulated] // d=3h^=75sec
 cycles.WEATHER_CHANGE_CHANCE = 100; // The chance of weather changing in percent // d=10%
-cycles.THUNDERBOLT_APPEAR_CHANCE = 0.015; // The chance of a lightning appers during storm in percentage // d=0.1
+cycles.THUNDERBOLT_APPEAR_CHANCE = 0.01; // The chance of a lightning appers during storm in percentage // d=0.1
 cycles.WETHER_TYPES = [ 'none', 'none', 'rain', 'storm', 'snow' ];// possible types of weather; multiple entrys -> higher chance
 cycles.THROTTLE_INTERVAL = 10 * cycles.SPEED; // lower interval, but same speed // higher value for higher performance
 //======// CONFIG //======//
@@ -42,6 +42,8 @@ cycles.init = function()
     return {
         currentTime: new simulatedTime( {ms:0} ),
         
+        brightnessSprite: cycles.initBrightnessSprite(),
+        
         //currentWeather: cycles.WETHER_TYPES[ Math.floor ( Math.random() * cycles.WETHER_TYPES.length ) ],
         currentWeather: cycles.WETHER_TYPES[3],
         currentWeatherPower : Math.random() * 8 + 1,
@@ -63,7 +65,9 @@ cycles.start = function()
         cycles.update, 
         cycles.THROTTLE_INTERVAL/cycles.SPEED
     ); // call the update function every millisecond[simulted] | throttled down |
+    
     $cycles.isRunning = true;
+    
     $gameScreen.changeWeather(
         $cycles.currentWeather, 
         $cycles.currentWeatherPower, 
@@ -77,6 +81,19 @@ cycles.start = function()
         alias.call(this, sprite);
         cycles.thunderbolt();
     }
+}
+
+/**
+ * shows all sprites
+ * @method showSprites
+ * @author Tm Greller
+ */
+cycles.showSprites = function()
+{
+    SceneManager._scene.addChild($cycles.brightnessSprite);
+    cycles.updateBrightness();
+    
+    $cycles.currentTime.initDigitalClock();
 }
 
 /**
@@ -107,6 +124,28 @@ cycles.update = function()
         $cycles.weatherCoolDown =  cycles.WEATHER_CHANGE_MIN_COOLDOWN;
         cycles.weatherChange();
     }
+}
+
+cycles.initBrightnessSprite = function()
+{
+    var sprite = new Sprite();
+    sprite.bitmap = new Bitmap(SceneManager._screenWidth, SceneManager._screenHeight);
+    sprite.x = 0;
+    sprite.y = 0;
+    sprite.opacity = 0;
+    sprite.bitmap.fillAll('#000');
+    return sprite;
+}
+
+/** 
+ * sets the brightness of the light depending on the time
+ * @method updateBrightness
+ * @author Tim Greller
+ */
+cycles.updateBrightness = function()
+{
+    // f(x) = ( cos(x / 1440) + 1 ) (100)
+    $cycles.brightnessSprite.opacity = ( Math.cos($cycles.currentTime.getTotalMinutes() / 1440) + 1 ) * 75;
 }
 
 
@@ -366,7 +405,7 @@ simulatedTime.prototype.getAdditionalMilliseconds = function()
  */
 simulatedTime.prototype.add = function(timeObj)
 {
-    var old = this;
+    var old = new simulatedTime({ms:this.getTotalMilliseconds()});
     
     if('msec' in timeObj) this.value += timeObj.msec * 1 ;
     if('secs' in timeObj) this.value += timeObj.secs * 1 * 1000 ;
@@ -386,10 +425,58 @@ simulatedTime.prototype.add = function(timeObj)
  */
 simulatedTime.prototype.onChange = function(simulatedTimeObj)
 {
-    
+    //update on Minutes changed
+    if( simulatedTimeObj.getAdditionalMinutes() < this.getAdditionalMinutes())
+    {
+        this.updateDigitalClock();
+        cycles.updateBrightness();
+    }
 }
 
+/**
+ * displays digital clock
+ * @author Tim Greller
+ * @method initDigitalClock
+ */
+simulatedTime.prototype.initDigitalClock = function()
+{
+    this.sprite = new Sprite();
+    this.sprite.bitmap = new Bitmap(SceneManager._screenWidth, SceneManager._screenHeight);
+    this.sprite.x = 0;
+    this.sprite.y = 0;
+    this.sprite.opacity = 220;
+    SceneManager._scene.addChild(this.sprite);
+}
 
+/**
+ * updates the time of the digitalClock
+ * @author Tim Greller
+ * @method updateDigitalClock
+ */
+simulatedTime.prototype.updateDigitalClock = function()
+{
+    var hour = this.getAdditionalHours  ();
+    var mins = this.getAdditionalMinutes();
+    var ampm = " "                        ;
+    
+    if(hour>12)
+    { 
+        hour -= 12  ;
+        ampm += "PM";
+    } 
+    else 
+    {
+        ampm += "AM";
+    }
+    
+    if(hour.toString().length<2) hour = "0" + hour.toString();
+    if(mins.toString().length<2) mins = "0" + mins.toString();
+    var time = hour + ":" + mins + ampm;
+    
+    this.sprite.bitmap.clear();
+    this.sprite.bitmap.textColor = "#fff";
+    this.sprite.bitmap.drawText(time, SceneManager._screenWidth - 90, 10 , 90, 30, "right");
+}
 
 
 

@@ -377,6 +377,8 @@ Scene_Map.prototype.onMapLoaded = function() {
     if (this._transfer) {
         $gamePlayer.performTransfer();
         Savepoints.doAutosave();//NEW@TIM#SAVE
+        if(! $cycles.isRunning) cycles.start(); //NEW@TIM#CYCLES
+        setTimeout(cycles.showSprites,100); //NEW@TIM#CYCLES
     }
     this.createDisplayObjects();
 };
