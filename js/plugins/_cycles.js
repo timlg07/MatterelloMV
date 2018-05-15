@@ -10,7 +10,7 @@
 
 
 //======// CONFIG //======//
-cycles.SPEED = 144; // How many times faster the simulated time should go in comparison to the real time // d=144x -> 1d^=10min
+cycles.SPEED = 1440; // How many times faster the simulated time should go in comparison to the real time // d=144x -> 1d^=10min
 cycles.WEATHER_CHANGE_MIN_COOLDOWN = 1 * (60*60*1000); // The interval when weather could change in MS[simulated] // d=3h^=75sec
 cycles.WEATHER_CHANGE_CHANCE = 100; // The chance of weather changing in percent // d=10%
 cycles.THUNDERBOLT_APPEAR_CHANCE = 0.01; // The chance of a lightning appers during storm in percentage // d=0.1
@@ -144,9 +144,8 @@ cycles.initBrightnessSprite = function()
  */
 cycles.updateBrightness = function()
 {
-    // f(x) = 100 (cos(x / 445.63383) + 1)
-    //for(var i=0;i<48;i++){output(i+': '+(Math.cos(i/3.6669999) + 1 ) * 75)}
-    $cycles.brightnessSprite.opacity = ( Math.cos($cycles.currentTime.getTotalMinutes() / 445.63383) + 1 ) * 75;
+    // f(x) = 100 (cos(x / (445.63383/2)) + 1)
+    $cycles.brightnessSprite.opacity = ( Math.cos($cycles.currentTime.getTotalMinutes() / (445.63383/2)) + 1 ) * 75;
 }
 
 
