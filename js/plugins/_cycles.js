@@ -144,8 +144,9 @@ cycles.initBrightnessSprite = function()
  */
 cycles.updateBrightness = function()
 {
-    // f(x) = ( cos(x / 1440) + 1 ) (100)
-    $cycles.brightnessSprite.opacity = ( Math.cos($cycles.currentTime.getTotalMinutes() / 1440) + 1 ) * 75;
+    // f(x) = 100 (cos(x / 445.63383) + 1)
+    //for(var i=0;i<48;i++){output(i+': '+(Math.cos(i/3.6669999) + 1 ) * 75)}
+    $cycles.brightnessSprite.opacity = ( Math.cos($cycles.currentTime.getTotalMinutes() / 445.63383) + 1 ) * 75;
 }
 
 
