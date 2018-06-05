@@ -56,7 +56,8 @@ function SlotMachine(){
     this.initGraphics = function(){
         this.loadCount= 8;
         this.graphics = {
-            symbols : [
+            symbols : 
+            [
                 this.newImage("sym_1.png"),
                 this.newImage("sym_2.png"),
                 this.newImage("sym_3.png"),
