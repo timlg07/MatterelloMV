@@ -11,8 +11,8 @@
 
 //======// CONFIG //======//
 cycles.SPEED = 1440; // How many times faster the simulated time should go in comparison to the real time // d=144x -> 1d^=10min
-cycles.WEATHER_CHANGE_MIN_COOLDOWN = 3 * (60*60*1000); // The interval when weather could change in MS[simulated] // d=3h^=75sec
-cycles.WEATHER_CHANGE_CHANCE = 10; // The chance of weather changing in percent // d=10%
+cycles.WEATHER_CHANGE_MIN_COOLDOWN = 1 * (60*60*1000); // The interval when weather could change in MS[simulated] // d=3h^=75sec
+cycles.WEATHER_CHANGE_CHANCE = 100; // The chance of weather changing in percent // d=10%
 cycles.THUNDERBOLT_APPEAR_CHANCE = 0.01; // The chance of a lightning appers during storm in percentage // d=0.01
 cycles.WETHER_TYPES = [ 'none', 'none', 'rain', 'storm', 'snow' ];// possible types of weather; multiple entrys -> higher chance
 cycles.THROTTLE_INTERVAL = 10 * cycles.SPEED; // lower interval, but same speed // higher value for higher performance
@@ -68,11 +68,14 @@ cycles.start = function()
     
     $cycles.isRunning = true;
     
-    $gameScreen.changeWeather(
-        $cycles.currentWeather, 
-        $cycles.currentWeatherPower, 
-        cycles.WEATHER_CHANGE_MIN_COOLDOWN /1000 /cycles.SPEED * 60
-    );
+    if($gameMap.mapId()==3)
+    {
+        $gameScreen.changeWeather(
+            $cycles.currentWeather, 
+            $cycles.currentWeatherPower, 
+            cycles.WEATHER_CHANGE_MIN_COOLDOWN /1000 /cycles.SPEED * 60
+        );
+    }
     //alert("weather set to "+$cycles.currentWeather+"(power="+$cycles.currentWeatherPower+")");
     
     //=================// THUNDERBOLT //================//
@@ -191,7 +194,28 @@ cycles.performWeatherChange = function()
     $cycles.currentWeather = newWeather;
     $cycles.currentWeatherPower = power;
     
-    $gameScreen.changeWeather(newWeather, power, duration);
+    if($gameMap.mapId()==3)
+    {
+        $gameScreen.changeWeather(newWeather, power, duration);
+    }
+}
+
+cycles.onMapChange = function()
+{
+    if($gameMap.mapId()!=3)
+    {
+        $gameScreen.changeWeather(
+            cycles.WETHER_TYPES[0], 
+            $cycles.currentWeatherPower, 
+            cycles.WEATHER_CHANGE_MIN_COOLDOWN /1000 /cycles.SPEED * 60
+        );
+    } else {
+        $gameScreen.changeWeather(
+            $cycles.currentWeather, 
+            $cycles.currentWeatherPower, 
+            cycles.WEATHER_CHANGE_MIN_COOLDOWN /1000 /cycles.SPEED * 60
+        );
+    }
 }
 
 cycles.thunderboltState = 'inactive';

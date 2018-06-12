@@ -378,6 +378,7 @@ Scene_Map.prototype.onMapLoaded = function() {
         $gamePlayer.performTransfer();
         Savepoints.doAutosave();//NEW@TIM#SAVE
         if(! $cycles.isRunning) cycles.start(); //NEW@TIM#CYCLES
+        cycles.onMapChange(); //NEW@TIM#CYCLES
         setTimeout(cycles.showSprites,100); //NEW@TIM#CYCLES
     }
     this.createDisplayObjects();
