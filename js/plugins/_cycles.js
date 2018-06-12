@@ -11,8 +11,8 @@
 
 //======// CONFIG //======//
 cycles.SPEED = 1440; // How many times faster the simulated time should go in comparison to the real time // d=144x -> 1d^=10min
-cycles.WEATHER_CHANGE_MIN_COOLDOWN = 1 * (60*60*1000); // The interval when weather could change in MS[simulated] // d=3h^=75sec
-cycles.WEATHER_CHANGE_CHANCE = 100; // The chance of weather changing in percent // d=10%
+cycles.WEATHER_CHANGE_MIN_COOLDOWN = 3 * (60*60*1000); // The interval when weather could change in MS[simulated] // d=3h^=75sec
+cycles.WEATHER_CHANGE_CHANCE = 10; // The chance of weather changing in percent // d=10%
 cycles.THUNDERBOLT_APPEAR_CHANCE = 0.01; // The chance of a lightning appers during storm in percentage // d=0.01
 cycles.WETHER_TYPES = [ 'none', 'none', 'rain', 'storm', 'snow' ];// possible types of weather; multiple entrys -> higher chance
 cycles.THROTTLE_INTERVAL = 10 * cycles.SPEED; // lower interval, but same speed // higher value for higher performance
