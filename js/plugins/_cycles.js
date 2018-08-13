@@ -27,7 +27,7 @@ cycles.THROTTLE_INTERVAL = 10 * cycles.SPEED; // lower interval, but same speed 
  */
 function cycles()
 {
-    throw new Error('js/plugins/_cycles.js: cycles is a static class');
+    throw new Error('/js/plugins/_cycles.js: cycles is a static class');
 }
 
 /**
@@ -44,8 +44,8 @@ cycles.init = function()
         
         brightnessSprite: cycles.initBrightnessSprite(),
         
-        //currentWeather: cycles.WETHER_TYPES[ Math.floor ( Math.random() * cycles.WETHER_TYPES.length ) ],
-        currentWeather: cycles.WETHER_TYPES[3],
+        currentWeather: cycles.WETHER_TYPES[ Math.floor ( Math.random() * cycles.WETHER_TYPES.length ) ],
+        //currentWeather: cycles.WETHER_TYPES[3],
         currentWeatherPower : Math.random() * 8 + 1,
         weatherCoolDown: cycles.WEATHER_CHANGE_MIN_COOLDOWN,
         
@@ -171,6 +171,8 @@ cycles.weatherChange = function()
             cycles.WEATHER_CHANGE_MIN_COOLDOWN/1000 * 60
         );
     }
+    
+    throw new Error( "äroar detected. requesting trycatch." );
 }
 
 /**
