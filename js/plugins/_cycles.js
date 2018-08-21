@@ -172,7 +172,7 @@ cycles.weatherChange = function()
         );
     }
     
-    throw new Error( "äroar detected. requesting trycatch." );
+    //throw new Error( "äroar detected. requesting trycatch." );
 }
 
 /**

@@ -7,7 +7,7 @@ PluginManager.setup($plugins);
 window.onload = function() {
     SceneManager.run(Scene_Boot);
     screenInit();//NEW@TIM#SIZE
-    
+    return;
     var a = "2";
     var b = 20 ;
     while( a+a-a == b ){
