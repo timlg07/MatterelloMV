@@ -147,8 +147,18 @@ cycles.initBrightnessSprite = function()
  */
 cycles.updateBrightness = function()
 {
-    // f(x) = 100 (cos(x / (445.63383/2)) + 1)
-    $cycles.brightnessSprite.opacity = ( Math.cos($cycles.currentTime.getTotalMinutes() / (445.63383/2)) + 1 ) * 75;
+    // set opacity to 0 if indoor:
+    if(!(
+        $gameMap.mapId() ===  3 ||
+        $gameMap.mapId() === 16
+    )){
+        $cycles.brightnessSprite.opacity = 0;
+    } else {
+
+        // f(x) = 100 (cos(x / (445.63383/2)) + 1)
+        $cycles.brightnessSprite.opacity = ( Math.cos($cycles.currentTime.getTotalMinutes() / (445.63383/2)) + 1 ) * 75;
+
+    }
 }
 
 
