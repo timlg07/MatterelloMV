@@ -364,8 +364,7 @@ DataManager.loadSavefileInfo = function(savefileId) {
 };
 
 DataManager.lastAccessedSavefileId = function() {
-    return 1;//EDIT@TIM#SAVE
-    //return this._lastAccessedId;
+    return this._lastAccessedId;
 };
 
 DataManager.saveGameWithoutRescue = function(savefileId) {
@@ -374,7 +373,7 @@ DataManager.saveGameWithoutRescue = function(savefileId) {
         console.warn('Save data too big!');
     }
     StorageManager.save(savefileId, json);
-    this._lastAccessedId = 1;//EDIT@TIM#SAVE
+    this._lastAccessedId = savefileId;//EDIT@TIM#SAVE
     var globalInfo = this.loadGlobalInfo() || [];
     globalInfo[savefileId] = this.makeSavefileInfo();
     this.saveGlobalInfo(globalInfo);
@@ -441,22 +440,26 @@ DataManager.makeSaveContents = function() {
     contents.party        = $gameParty;
     contents.map          = $gameMap;
     contents.player       = $gamePlayer;
-    contents.cycles       = $cycles; //NEW@TIM#CYCLES
+    /*contents.cycles       = {
+             currentTimeMS  : $cycles.currentTime.getTotalMilliseconds(),
+             currentWeather : $cycles.currentWeather
+    }//NEW@TIM#CYCLES*/
     return contents;
 };
 
 DataManager.extractSaveContents = function(contents) {
-    $gameSystem        = contents.system;
-    $gameScreen        = contents.screen;
-    $gameTimer         = contents.timer;
-    $gameSwitches      = contents.switches;
-    $gameVariables     = contents.variables;
-    $gameSelfSwitches  = contents.selfSwitches;
-    $gameActors        = contents.actors;
-    $gameParty         = contents.party;
-    $gameMap           = contents.map;
-    $gamePlayer        = contents.player;
-    $cycles            = contents.cycles; //NEW@TIM#CYCLES
+    $gameSystem            = contents.system;
+    $gameScreen            = contents.screen;
+    $gameTimer             = contents.timer;
+    $gameSwitches          = contents.switches;
+    $gameVariables         = contents.variables;
+    $gameSelfSwitches      = contents.selfSwitches;
+    $gameActors            = contents.actors;
+    $gameParty             = contents.party;
+    $gameMap               = contents.map;
+    $gamePlayer            = contents.player;
+    /*$cycles.currentTime    = new simulatedTime( {ms:contents.cycles.currentTimeMS} ); //NEW@TIM#CYCLES
+    $cycles.currentWeather = contents.cycles.currentWeather; //NEW@TIM#CYCLES*/
 };
 
 //-----------------------------------------------------------------------------
@@ -1751,6 +1754,7 @@ SceneManager.pop = function() {
 };
 
 SceneManager.exit = function() {
+    Savepoints.doAutosave();//NEW@TIM#SAVE
     this.goto(null);
     this._exiting = true;
 };

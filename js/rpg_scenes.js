@@ -376,7 +376,6 @@ Scene_Map.prototype.isReady = function() {
 Scene_Map.prototype.onMapLoaded = function() {
     if (this._transfer) {
         $gamePlayer.performTransfer();
-        Savepoints.doAutosave();//NEW@TIM#SAVE
         if(! $cycles.isRunning) cycles.start(); //NEW@TIM#CYCLES
         cycles.onMapChange(); //NEW@TIM#CYCLES
         setTimeout(cycles.showSprites,100); //NEW@TIM#CYCLES
@@ -1488,7 +1487,7 @@ Scene_Save.prototype.helpWindowText = function() {
 };
 
 Scene_Save.prototype.firstSavefileIndex = function() {
-    return DataManager.lastAccessedSavefileId() - 1;
+    return 0;//DataManager.lastAccessedSavefileId() - 1
 };
 
 Scene_Save.prototype.onSavefileOk = function() {
@@ -1544,7 +1543,7 @@ Scene_Load.prototype.helpWindowText = function() {
 };
 
 Scene_Load.prototype.firstSavefileIndex = function() {
-    return DataManager.latestSavefileId() - 1;
+    return DataManager.latestSavefileId() - 1;//#EDIT@TIM
 };
 
 Scene_Load.prototype.onSavefileOk = function() {

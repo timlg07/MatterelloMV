@@ -23,11 +23,10 @@ Savepoints.maxSavefiles = function() {
 //SAVE
 Savepoints.doAutosave = function(){
     try{
-        return DataManager.saveGameWithoutRescue(1);
+        if( DataManager.saveGameWithoutRescue( 1 )) SoundManager.playSave();
     }catch(e){
-        console.error(e);
-        try{StorageManager.remove(1);}catch(e2){doNothing()}
-        return false;
+        alert(e);
+        try{StorageManager.remove(1);}catch(e2){}
     }
 }
 
@@ -38,7 +37,7 @@ Savepoints.saveGame = function(savefileId) {
     try {
         return DataManager.saveGameWithoutRescue(savefileId);
     } catch (e) {
-        console.error(e);
+        alert(e);
         try {
             StorageManager.remove(savefileId);
         }catch(e2){doNothing()}
