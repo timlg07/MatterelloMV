@@ -1,2 +1,3 @@
 # MatterelloMV
-P-Seminar Game Project; Made with rpg maker mv
+This game is a placeholder.  
+But the graphic is running.  
