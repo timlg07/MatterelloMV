@@ -15,7 +15,7 @@ null,
 {"id":13,"expanded":false,"name":"Spielhalle2 automaten links","order":16,"parentId":12,"scrollX":1139,"scrollY":641},
 {"id":14,"expanded":false,"name":"Spielhalle1 klassisch rechts","order":17,"parentId":12,"scrollX":1131,"scrollY":720},
 {"id":15,"expanded":true,"name":"Casino Eingang","order":15,"parentId":12,"scrollX":1139,"scrollY":641},
-{"id":16,"expanded":true,"name":"Open World","order":1,"parentId":0,"scrollX":1139,"scrollY":633},
+{"id":16,"expanded":true,"name":"Open World","order":1,"parentId":0,"scrollX":1524,"scrollY":633},
 {"id":17,"expanded":false,"name":"Direktorbüro","order":5,"parentId":1,"scrollX":1139,"scrollY":641},
 {"id":18,"expanded":true,"name":"Casino Eingang","order":12,"parentId":10,"scrollX":1139,"scrollY":641}
 ]
