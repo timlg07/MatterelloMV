@@ -68,7 +68,11 @@ cycles.start = function()
     
     $cycles.isRunning = true;
     
-    if($gameMap.mapId()==3)
+    if
+    (
+        $gameMap.mapId()==3 ||
+        $gameMap.mapId()==16
+    )
     {
         $gameScreen.changeWeather(
             $cycles.currentWeather, 
@@ -181,8 +185,6 @@ cycles.weatherChange = function()
             cycles.WEATHER_CHANGE_MIN_COOLDOWN/1000 * 60
         );
     }
-    
-    //throw new Error( "äroar detected. requesting trycatch." );
 }
 
 /**
@@ -206,7 +208,11 @@ cycles.performWeatherChange = function()
     $cycles.currentWeather = newWeather;
     $cycles.currentWeatherPower = power;
     
-    if($gameMap.mapId()==3)
+    if
+    (
+        $gameMap.mapId()==3 ||
+        $gameMap.mapId()==16
+    )
     {
         $gameScreen.changeWeather(newWeather, power, duration);
     }
@@ -214,7 +220,11 @@ cycles.performWeatherChange = function()
 
 cycles.onMapChange = function()
 {
-    if($gameMap.mapId()!=3)
+    if
+    (
+        $gameMap.mapId()!=3 &&
+        $gameMap.mapId()!=16
+    )
     {
         $gameScreen.changeWeather(
             cycles.WETHER_TYPES[0], 
@@ -493,16 +503,11 @@ simulatedTime.prototype.updateDigitalClock = function()
 {
     var hour = this.getAdditionalHours  ();
     var mins = this.getAdditionalMinutes();
-    var ampm = " "                        ;
+    var ampm = "AM"                       ;
     
-    if(hour>12)
-    { 
+    if( hour  > 12 ){ 
         hour -= 12  ;
-        ampm += "PM";
-    } 
-    else 
-    {
-        ampm += "AM";
+        ampm  = "PM";
     }
     
     if(hour.toString().length<2) hour = "0" + hour.toString();
