@@ -512,11 +512,11 @@ simulatedTime.prototype.updateDigitalClock = function()
     
     if(hour.toString().length<2) hour = "0" + hour.toString();
     if(mins.toString().length<2) mins = "0" + mins.toString();
-    var time = hour + ":" + mins + ampm;
+    var time = hour + ":" + mins + " " + ampm;
     
     this.sprite.bitmap.clear();
     this.sprite.bitmap.textColor = "#fff";
-    this.sprite.bitmap.drawText(time, SceneManager._screenWidth - 90, 10 , 90, 30, "right");
+    this.sprite.bitmap.drawText(time, SceneManager._screenWidth - 100, 10 , 90, 30, "right");
 }
 
 
