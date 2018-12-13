@@ -15,7 +15,7 @@ Savepoints.names = [
 
 Savepoints.getName = function(savefileId){
     realID = savefileId - 1;
-    return Savepoints.names[realID]
+    return Savepoints.names[realID] || "";
 }
 
 Savepoints.maxSavefiles = function() {
