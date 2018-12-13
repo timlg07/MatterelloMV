@@ -5,10 +5,12 @@ function Savepoints(){
 //The names of all Savepoints:
 Savepoints.names = [
     "Autosave",
-    "Kapitel1",
-    "Kapitel2",
-    "Kapitel3",
-    "Kapitel4",
+    "Killer",
+    "My family wants me dead?",
+    "Flashback 1",
+    "Investigation",
+    "Flashback 2",
+    "Boss Fight"
 ];
 
 Savepoints.getName = function(savefileId){
