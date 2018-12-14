@@ -153,15 +153,17 @@ cycles.updateBrightness = function()
 {
     // set opacity to 0 if indoor:
     if(!(
-        $gameMap.mapId() ===  3 ||
-        $gameMap.mapId() === 16
+        $gameMap.mapId() ===  3 || // Dark Alley
+        $gameMap.mapId() === 16    // Open World
     )){
         $cycles.brightnessSprite.opacity = 0;
     } else {
-
-        // f(x) = 100 (cos(x / (445.63383/2)) + 1)
-        $cycles.brightnessSprite.opacity = ( Math.cos($cycles.currentTime.getTotalMinutes() / (445.63383/2)) + 1 ) * 75;
-
+        // f(x) = 75 ( cos(x / 229) + 1 )
+        $cycles.brightnessSprite.opacity = 75 * ( 
+            Math.cos( 
+                $cycles.currentTime.getTotalMinutes() / 229
+            ) + 1 
+        );
     }
 }
 
@@ -188,7 +190,7 @@ cycles.weatherChange = function()
 }
 
 /**
- * performs the weather change
+ * performs an weather change when executed
  * @method performWeatherChange
  * @author Tim Greller
  */
