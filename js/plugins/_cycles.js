@@ -44,8 +44,8 @@ cycles.init = function()
         
         brightnessSprite: cycles.initBrightnessSprite(),
         
-        currentWeather: cycles.WETHER_TYPES[ Math.floor ( Math.random() * cycles.WETHER_TYPES.length ) ],
-        //currentWeather: cycles.WETHER_TYPES[3],
+        //currentWeather: cycles.WETHER_TYPES[ Math.floor ( Math.random() * cycles.WETHER_TYPES.length ) ],
+        currentWeather: cycles.WETHER_TYPES[3],
         currentWeatherPower : Math.random() * 8 + 1,
         weatherCoolDown: cycles.WEATHER_CHANGE_MIN_COOLDOWN,
         
@@ -177,7 +177,7 @@ cycles.weatherChange = function()
 {
     if( Math.random() < cycles.WEATHER_CHANGE_CHANCE/100 )
     {
-        cycles.performWeatherChange();
+        //cycles.performWeatherChange();
     }
     else
     {
@@ -283,7 +283,7 @@ cycles.performThunderbolt = function()
         SceneManager._scene.removeChild(cycles.sprite);
         cycles.sprite = null;
         cycles.thunderboltState = 'inactive';
-    }, 60 * ( Math.random + 1 ) )
+    }, 60 * ( Math.random() + 1 ) )
 }
 
 
