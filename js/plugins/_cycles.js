@@ -283,7 +283,7 @@ cycles.performThunderbolt = function()
         SceneManager._scene.removeChild(cycles.sprite);
         cycles.sprite = null;
         cycles.thunderboltState = 'inactive';
-    }, 60 * ( Math.random() + 1 ) )
+    }, 15 * ( 2*Math.random() + 1 ) )
 }
 
 
