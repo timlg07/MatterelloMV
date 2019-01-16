@@ -1,7 +1,7 @@
 [
 null,
-{"id":1,"expanded":true,"name":"Police Station","order":2,"parentId":16,"scrollX":810,"scrollY":608},
-{"id":2,"expanded":false,"name":"Prison","order":3,"parentId":1,"scrollX":902,"scrollY":600},
+{"id":1,"expanded":true,"name":"Police Station","order":2,"parentId":16,"scrollX":775,"scrollY":608.5},
+{"id":2,"expanded":false,"name":"Prison","order":3,"parentId":1,"scrollX":775,"scrollY":473},
 {"id":3,"expanded":true,"name":"Dark-Alley","order":19,"parentId":16,"scrollX":991,"scrollY":643},
 {"id":4,"expanded":false,"name":"Ha look at your nose","order":4,"parentId":1,"scrollX":810,"scrollY":848},
 {"id":5,"expanded":false,"name":"Spielhalle2 automaten links","order":10,"parentId":10,"scrollX":810,"scrollY":512},
@@ -21,5 +21,5 @@ null,
 {"id":19,"expanded":true,"name":"Casino FB 2","order":20,"parentId":3,"scrollX":780,"scrollY":959},
 {"id":20,"expanded":true,"name":"Spielhalle2 fb2 links","order":21,"parentId":19,"scrollX":991,"scrollY":643},
 {"id":21,"expanded":false,"name":"Spielhalle1 fb2 rechts","order":22,"parentId":20,"scrollX":983,"scrollY":797},
-{"id":22,"expanded":false,"name":"Kleiner Raum","order":13,"parentId":10,"scrollX":818,"scrollY":448}
+{"id":22,"expanded":false,"name":"Kleiner Raum","order":13,"parentId":10,"scrollX":783,"scrollY":481}
 ]
