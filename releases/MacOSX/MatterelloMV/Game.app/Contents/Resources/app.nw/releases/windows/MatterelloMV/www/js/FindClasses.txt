@@ -1,0 +1,7 @@
+this is a textfile which lets you know where you can find important Functions, 
+without scrolling through the whole document
+
+Game_Picture => [rpg_objects:927]
+Game_Screen  => [rpg_objects:610]
+Game_Message => [rpg_objects:319]
+Window_SavefileList => [rpg_windows:2782]
