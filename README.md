@@ -6,5 +6,9 @@
 
 ![Micheal](dev/img/faces/michael2.png)
 
+### Download now:
+Windows:  [releases/download/v1.0/Windows.zip](https://github.com/timlg07/MatterelloMV/releases/download/v1.0/Windows.zip)  
+Mac OS X: [releases/download/v1.0/MacOSX.zip](https://github.com/timlg07/MatterelloMV/releases/download/v1.0/MacOSX.zip)
+
 ### Play online:
 http://tim-greller.tk/TwistedMemories
