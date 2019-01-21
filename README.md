@@ -1,8 +1,6 @@
 # Twisted Memories
 
-(__EN__) The video game “Twisted Memories” tells the story of the former mafiosi Michael Tribiani. He suffers from amnesia and piece by piece uncovers his dark past. 
-
-(__DE__) Das Videospiel “Twisted Memories” erzählt die Geschichte des ehemaligen Mafia-Mitglieds Michael Tribiani. Dieser leidet unter Amnesie und deckt Stück für Stück seine eigene düstere Vergangenheit auf.
+The video game “Twisted Memories” tells the story of the former mafia member Michael Tribiani, who suffers from amnesia and slowly uncovers his dark past. 
 
 ![Micheal](dev/img/faces/michael2.png)
 
